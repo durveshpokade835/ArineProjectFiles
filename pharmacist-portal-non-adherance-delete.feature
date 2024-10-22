@@ -12,16 +12,21 @@ Feature: Verify Delete in non adherance feature
       | $pharmacist-portal-non-adherance-delete.user1.username | $pharmacist-portal-non-adherance-delete.user1.password | success |
 
 
-  Scenario: verify visibility of selected elements in the dropDown menu
+  Scenario Outline: verify visibility of selected elements in the dropDown menu
     When Click on Patient Tab
-    And Search patient: "3620b636-5b8e-44b3-8461-130983b7dc4e"
+    And Search patient: "<Patient Id>"
     And Click on tab: "Med List"
     And Click on patient first medicine record
     And User clicks on dropDown in Medlist page and select "Adherent - filled through cash" option
 #    And User clicks on "Select or Type..." dropDown in Medlist page and select "Adherent - filled through other insurance" option
-    And Verify "Adherent - filled through cash" option in dropdown field present in Medlist tab
-    And Verify "Adherent - filled through cash" option in dropdown list present in Medlist tab
-    And Verify "Adherent - filled through cash" option is not visible in dropdown list present in Medlist tab
+    And Verify "<selectOption>" option in dropdown field
+    And Verify "<selectOption>" option is in SELECTED list section in Dropdown
+    And Verify "<selectOption>" option is not in AVAILABLE OPTIONS list section in Dropdown
+    Examples:
+      | Patient Id                           | selectOption                         |
+      | 3620b636-5b8e-44b3-8461-130983b7dc4e | Adherent - filled through cash       |
+#      | 3620b636-5b8e-44b3-8461-130983b7dc4e | Adherent- Billing delay (LTC or SNF) |
+
 
   @Setup
   Scenario: SETUP: Logout and Close Browser

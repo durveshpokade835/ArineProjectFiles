@@ -20,14 +20,14 @@ public class PharmacistPortalNonAdheranceDeleteStepDefs {
 
     }
 
-    @And("Verify {string} option in dropdown field present in Medlist tab")
+    @And("Verify {string} option in dropdown field")
     public void verifyOptionInDropdownFieldPresentInMedlistTab(String selectedValue) throws AutomationException {
         common.logInfo("User verifies the selected value '" + selectedValue + "' is getting displayed or not in the dropDown input box in Medlist page");
         PageFactory.pharmacistPortalNonAdheranceDeletePage().verifyElementsInDropDownBox(selectedValue);
         takeScreenshot();
     }
 
-    @And("Verify {string} option in dropdown list present in Medlist tab")
+    @And("Verify {string} option is in SELECTED list section in Dropdown")
     public void verifyDropdownOptionsPresentInMedlistTab(String selectedValue) throws AutomationException {
         common.logInfo("User verifies the selected value '"+ selectedValue +"' is getting displayed or not in the dropDown List under selected section in Medlist page");
         PageFactory.pharmacistPortalNonAdheranceDeletePage().verifyElementsAvailableInDropDownList(selectedValue);
@@ -35,7 +35,7 @@ public class PharmacistPortalNonAdheranceDeleteStepDefs {
     }
 
 
-    @And("Verify {string} option is not visible in dropdown list present in Medlist tab")
+    @And("Verify {string} option is not in AVAILABLE OPTIONS list section in Dropdown")
     public void verifyOptionIsNotVisibleInAvailableOptionInDropdownListPresentInMedlistTab(String selectedValue) throws AutomationException {
         common.logInfo("User verifies the selected value '"+ selectedValue +"' is getting displayed or not in the dropDown List under selected section in Medlist page");
         PageFactory.pharmacistPortalNonAdheranceDeletePage().verifyElementsNotAvailableInDropDownList(selectedValue);
