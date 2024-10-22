@@ -133,10 +133,17 @@ import static com.arine.automation.glue.CommonSteps.takeScreenshot;
 
 public class PharmacistPortalNonAdheranceDeletePage extends PatientPage {
 
-    public static final String MED_LIST_INPUT_BOX = "(//div[@class='css-1ndbt8o-multiValue'])/div[@class='css-12jo7m5']";
+//    public static final String MED_LIST_INPUT_BOX = "(//div[@class='css-1ndbt8o-multiValue'])/div[@class='css-12jo7m5']";
+    public static final String MED_LIST_INPUT_BOX ="//span[contains(text(), 'Reasons for Non-adherence')]/following::div[contains(text(), '-') or contains(text(),'Other')]";
+
     public static final String MED_LIST_INPUT_BOX_SELECTED_LIST = "//*[text()='Selected']/following-sibling::div//label";
-    public static final String SELECT_DROPDOWN = "//*[text()='Reasons for Non-adherence']/following-sibling::span//div[contains(@class,' css-117e4ry')]";
-    public static final String CLEAR_BUTTON = "(//div[contains(@class,'css-vv1fq9-indicatorContainer')])[1]";
+
+//    public static final String SELECT_DROPDOWN = "//*[text()='Reasons for Non-adherence']/following-sibling::span//div[contains(@class,' css-117e4ry')]";
+    public static final String SELECT_DROPDOWN = "//*[text()='Reasons for Non-adherence']/following-sibling::span/div";
+
+//    public static final String CLEAR_BUTTON = "(//div[contains(@class,'css-vv1fq9-indicatorContainer')])[1]";
+    public static final String CLEAR_BUTTON = "//span[contains(text(), 'Reasons for Non-adherence')]/following::div[contains(@class,' css-vv1fq9-indicatorContainer')][1]";
+
     public static final String MED_LIST_INPUT_BOX_UNAVAILABLE_LIST = "//*[contains(text(),'Available options')]/following-sibling::div//label";
 
     Actions actions = new Actions(DriverFactory.drivers.get());
@@ -212,7 +219,7 @@ public class PharmacistPortalNonAdheranceDeletePage extends PatientPage {
             Assert.assertEquals(actualValues, expectedValues, "Available dropdown options do not match the expected values.");
         } catch (Exception e) {
             takeScreenshot();
-            throw new AutomationException(String.format("Error occurred while verifying available elements in dropdown: " + e.getMessage(), (List<String>) e));
+            throw new AutomationException(String.format("Error occurred while verifying available elements in dropdown: " + e.getMessage()));
         }
     }
 
@@ -242,7 +249,7 @@ public class PharmacistPortalNonAdheranceDeletePage extends PatientPage {
             softAssert.assertAll();
         } catch (Exception e) {
             takeScreenshot();
-            throw new AutomationException(String.format("Error occurred while verifying unavailable elements in dropdown: " + e.getMessage(), (List<String>) e));
+            throw new AutomationException(String.format("Error occurred while verifying unavailable elements in dropdown: " + e.getMessage()));
         }
     }
 }
