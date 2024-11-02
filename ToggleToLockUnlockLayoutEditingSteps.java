@@ -26,17 +26,14 @@ public class ToggleToLockUnlockLayoutEditingSteps {
 
     @Then("The menu option should display {string} when Layout is {string}")
     public void verify_menu_option_text(String expectedOptionText, String expectedLayoutState) throws AutomationException {
-        common.logInfo("The menu option should display '"+expectedOptionText+"' when Layout is '"+expectedLayoutState+"'");
-        if(expectedLayoutState.equals("Locked")) {
-            PageFactory.layoutPage().getLayoutOptionTextForLockedLayout(expectedOptionText);
-            takeScreenshot();
-            PageFactory.layoutPage().clickInitialsDropdown();
-
-        } else if (expectedLayoutState.equals("Unlocked")) {
-            PageFactory.layoutPage().getLayoutOptionTextForUnlockedLayout(expectedOptionText);
-            takeScreenshot();
-            PageFactory.layoutPage().clickInitialsDropdown();
+        if (expectedLayoutState.equalsIgnoreCase("Locked")) {
+            PageFactory.layoutPage().verifyLayoutOptionForLockedState(expectedOptionText);
+        } else {
+            PageFactory.layoutPage().verifyLayoutOptionForUnlockedState(expectedOptionText);
         }
+        takeScreenshot();
+        PageFactory.layoutPage().clickInitialsDropdown();
+
     }
 
 }

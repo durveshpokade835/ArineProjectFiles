@@ -1,5 +1,6 @@
-@PharmacistPortal @PrescriberAnalytics @PAFeature
+@PharmacistPortal @ToggleLayoutFeature
 Feature: Toggle to lock/unlock layout editing
+  This feature verifies that the 'Layout' menu option displays the correct lock/unlock status.
 
   @Setup @Regression @Smoke
   Scenario Outline: SETUP: Launch Browser and go to application
