@@ -39,15 +39,20 @@ public class LayoutPage {
     }
 
     private void verifyLayoutOptionText(String expectedOptionText, boolean isLocked) throws AutomationException {
+
         WebElement layoutElement = driverUtil.getWebElement(layout);
-        WebElement layoutOptionElement = driverUtil.getWebElement(layoutUnlockText);
-        if (layoutOptionElement == null) throw new AutomationException("Layout option not found in the dropdown menu.");
+//        WebElement layoutOptionElement = driverUtil.getWebElement(layoutUnlockText);
+        WebElement layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionText,expectedOptionText ));
+//        if (layoutOptionElement == null) throw new AutomationException("Layout option not found in the dropdown menu.");
 
         if ((isLocked && layoutElement == null) || (!isLocked && layoutElement != null)) {
             String actualOptionText = layoutOptionElement.getText();
             Assert.assertEquals(actualOptionText, expectedOptionText, "The layout option text did not match the expected text'"+expectedOptionText+"'.");
         } else {
+           String optionText =expectedOptionText.equalsIgnoreCase("Unlock Layout")?"Lock Layout":"Unlock Layout";
+            layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionText,optionText ));
             layoutOptionElement.click();
+//            clickSelectedLayoutOption("Unlock Layout");
             String actualOptionText = layoutOptionElement.getText();
             Assert.assertEquals(actualOptionText, expectedOptionText, "The layout option text did not match the expected text '"+expectedOptionText+"'.");
         }
@@ -87,3 +92,7 @@ public class LayoutPage {
     }
 
 }
+
+
+
+

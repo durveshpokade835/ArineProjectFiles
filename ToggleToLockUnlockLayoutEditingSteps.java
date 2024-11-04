@@ -50,3 +50,6 @@ public class ToggleToLockUnlockLayoutEditingSteps {
         Assert.assertTrue(isMovable, "The layout is not movable when unlocked.");
     }
 }
+
+
+
