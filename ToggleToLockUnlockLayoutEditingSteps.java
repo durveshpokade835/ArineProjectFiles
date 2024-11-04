@@ -1,6 +1,7 @@
 package com.arine.automation.glue;
 
 import com.arine.automation.exception.AutomationException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -36,4 +37,16 @@ public class ToggleToLockUnlockLayoutEditingSteps {
 
     }
 
+    @And("User clicks on the {string} button")
+    public void userClicksOnTheUnlockLayoutButton(String expectedLayoutState) throws AutomationException {
+        common.logInfo("User clicks on the '" + expectedLayoutState + "' button");
+        PageFactory.layoutPage().clickSelectedLayoutOption(expectedLayoutState);
+    }
+
+    @Then("The layout should be movable when unlocked")
+    public void theLayoutShouldBeMovableWhenUnlocked() throws AutomationException {
+        boolean isMovable = PageFactory.layoutPage().isLayoutMovable();
+        takeScreenshot();
+        Assert.assertTrue(isMovable, "The layout is not movable when unlocked.");
+    }
 }
