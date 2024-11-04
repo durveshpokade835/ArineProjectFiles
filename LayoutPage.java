@@ -12,10 +12,9 @@ import static com.arine.automation.glue.CommonSteps.driverUtil;
 public class LayoutPage {
 
     private final String initialsDropdown = "//button[contains(@class, 'node_modules-react-multilevel-dropdown-')]/span[contains(text(),'')]";
-    private final String layout = "//div[contains(@class,'react-grid-item react-draggable react-resizable')]";
-    private final String layoutButton = "//div[contains(@class,'node_modules-react-multilevel-dropdown-__menu-left___2rT6Q')]//li[text()='Layout']";
+    private final String layoutLockUnlockState = "//div[contains(@class,'react-grid-item react-draggable react-resizable')]";
+    private final String layoutOptionButton = "//div[contains(@class,'node_modules-react-multilevel-dropdown-__menu-left___2rT6Q')]//li[text()='%s']";
     private final String layoutOptionText = "//div[contains(@class,'node_modules-react-multilevel-dropdown-__menu-left___2rT6Q')]//li[contains(text(),'%s')]";
-    private final String layoutUnlockText = "//div[contains(@class,'node_modules-react-multilevel-dropdown-__menu-left___2rT6Q')]//li[contains(text(),'Unlock Layout')]";
     private final String layoutElement = "//div[contains(@class,'react-grid-item react-draggable react-resizable')]/div[contains(@class,'-PatientTriageSelection')]";
 
     public void clickInitialsDropdown() throws AutomationException {
@@ -24,8 +23,8 @@ public class LayoutPage {
         dropdown.click();
     }
 
-    public void hoverOverLayoutOption() throws AutomationException {
-        WebElement layoutOptionElement = driverUtil.getWebElement(layoutButton);
+    public void hoverOverLayoutOption(String layoutOption) throws AutomationException {
+        WebElement layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionButton,layoutOption));
         if (layoutOptionElement == null) throw new AutomationException("Layout option not found in the dropdown menu.");
         new Actions(DriverFactory.drivers.get()).moveToElement(layoutOptionElement).perform();
     }
@@ -39,12 +38,8 @@ public class LayoutPage {
     }
 
     private void verifyLayoutOptionText(String expectedOptionText, boolean isLocked) throws AutomationException {
-
-        WebElement layoutElement = driverUtil.getWebElement(layout);
-//        WebElement layoutOptionElement = driverUtil.getWebElement(layoutUnlockText);
+        WebElement layoutElement = driverUtil.getWebElement(layoutLockUnlockState);
         WebElement layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionText,expectedOptionText ));
-//        if (layoutOptionElement == null) throw new AutomationException("Layout option not found in the dropdown menu.");
-
         if ((isLocked && layoutElement == null) || (!isLocked && layoutElement != null)) {
             String actualOptionText = layoutOptionElement.getText();
             Assert.assertEquals(actualOptionText, expectedOptionText, "The layout option text did not match the expected text'"+expectedOptionText+"'.");
@@ -52,26 +47,17 @@ public class LayoutPage {
            String optionText =expectedOptionText.equalsIgnoreCase("Unlock Layout")?"Lock Layout":"Unlock Layout";
             layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionText,optionText ));
             layoutOptionElement.click();
-//            clickSelectedLayoutOption("Unlock Layout");
             String actualOptionText = layoutOptionElement.getText();
             Assert.assertEquals(actualOptionText, expectedOptionText, "The layout option text did not match the expected text '"+expectedOptionText+"'.");
         }
     }
 
     public void clickSelectedLayoutOption(String expectedLayoutOption) throws AutomationException {
-//        WebElement layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionText, expectedLayoutState));
-//        if (layoutOptionElement == null) {
-//            throw new AutomationException("Layout option not found in the dropdown menu.");
-//        }
-//        layoutOptionElement.click();
-
         WebElement layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionText,expectedLayoutOption));
-        WebElement layoutElement = driverUtil.getWebElement(layout);
+        WebElement layoutElement = driverUtil.getWebElement(layoutLockUnlockState);
         if ((expectedLayoutOption.equalsIgnoreCase("Unlock Layout")&& layoutElement==null)||(expectedLayoutOption.equalsIgnoreCase("Lock Layout")&& layoutElement!=null)){
             layoutOptionElement.click();
         }
-
-
     }
 
     public boolean isLayoutMovable() throws AutomationException {

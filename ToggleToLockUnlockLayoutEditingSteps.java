@@ -19,10 +19,10 @@ public class ToggleToLockUnlockLayoutEditingSteps {
         PageFactory.layoutPage().clickInitialsDropdown();
     }
 
-    @When("User hovers over the 'Layout' menu option")
-    public void user_hovers_over_layout_menu_option() throws AutomationException {
-        common.logInfo("User hovers over the 'Layout' menu option");
-        PageFactory.layoutPage().hoverOverLayoutOption();
+    @When("User hovers over the {string} menu option")
+    public void user_hovers_over_layout_menu_option(String layoutOption) throws AutomationException {
+        common.logInfo("User hovers over the '"+layoutOption+"' menu option");
+        PageFactory.layoutPage().hoverOverLayoutOption(layoutOption);
     }
 
     @Then("The menu option should display {string} when Layout is {string}")
@@ -50,6 +50,3 @@ public class ToggleToLockUnlockLayoutEditingSteps {
         Assert.assertTrue(isMovable, "The layout is not movable when unlocked.");
     }
 }
-
-
-

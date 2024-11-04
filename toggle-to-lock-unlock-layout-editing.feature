@@ -24,7 +24,7 @@ Feature: Toggle to lock/unlock layout editing
 
     Scenario: Verify when the Layout is unlocked, the Layout is movable
       When User clicks on the initials dropdown
-      And User hovers over the 'Layout' menu option
+      And User hovers over the "Layout" menu option
       And User clicks on the "Unlock Layout" button
       Then The layout should be movable when unlocked
 
