@@ -76,9 +76,4 @@ public class LayoutPage {
         // Verify if the layout has moved
         return (initialX != movedX) || (initialY != movedY);
     }
-
 }
-
-
-
-

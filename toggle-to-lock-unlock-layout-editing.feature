@@ -13,7 +13,7 @@ Feature: Toggle to lock/unlock layout editing
       | $pharmacist-portal-non-adherance-delete.user1.username | $pharmacist-portal-non-adherance-delete.user1.password | success |
 
   @Regression @Smoke
-  Scenario Outline: Verify when the Layout is Locked/unlocked, the menu option reads "Unlock Layout"/"Lock Layout"
+  Scenario Outline: Verify_user_able_to_see_correct_visible_text_with_respect_to_active_layout_state
     When User clicks on the initials dropdown
     And User hovers over the 'Layout' menu option
     Then The menu option should display "<Visible Text>" when Layout is "<Layout State>"
@@ -22,7 +22,8 @@ Feature: Toggle to lock/unlock layout editing
       | Unlock Layout | Locked       |
       | Lock Layout   | Unlocked     |
 
-    Scenario: Verify when the Layout is unlocked, the Layout is movable
+  @Regression @Smoke
+    Scenario: Verify_user_able_to_move_the_Layout_when_layout_is_unlocked
       When User clicks on the initials dropdown
       And User hovers over the "Layout" menu option
       And User clicks on the "Unlock Layout" button
