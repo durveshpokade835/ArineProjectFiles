@@ -15,7 +15,7 @@ public class LayoutPage {
     private final String layoutLockUnlockState = "//div[contains(@class,'react-grid-item react-draggable react-resizable')]";
     private final String layoutOptionButton = "//div[contains(@class,'node_modules-react-multilevel-dropdown-__menu-left___2rT6Q')]//li[text()='%s']";
     private final String layoutOptionText = "//div[contains(@class,'node_modules-react-multilevel-dropdown-__menu-left___2rT6Q')]//li[contains(text(),'%s')]";
-    private final String layoutElement = "//div[contains(@class,'react-grid-item react-draggable react-resizable')]/div[contains(@class,'-PatientTriageSelection')]";
+    private final String layoutElement = "//div[contains(@class,'-PatientTriageSelection')]";
 
     public void clickInitialsDropdown() throws AutomationException {
         WebElement dropdown = driverUtil.getWebElement(initialsDropdown);
