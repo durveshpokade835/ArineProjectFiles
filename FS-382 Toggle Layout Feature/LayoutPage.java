@@ -1,11 +1,10 @@
 package com.arine.automation.pages;
 
 import com.arine.automation.drivers.DriverFactory;
+import com.arine.automation.exception.AutomationException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import com.arine.automation.exception.AutomationException;
-import org.testng.Assert;
 
 import static com.arine.automation.glue.CommonSteps.driverUtil;
 
@@ -24,7 +23,7 @@ public class LayoutPage {
     }
 
     public void hoverOverLayoutOption(String layoutOption) throws AutomationException {
-        WebElement layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionButton,layoutOption));
+        WebElement layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionButton, layoutOption));
         if (layoutOptionElement == null) throw new AutomationException("Layout option not found in the dropdown menu.");
         new Actions(DriverFactory.drivers.get()).moveToElement(layoutOptionElement).perform();
     }
@@ -39,23 +38,36 @@ public class LayoutPage {
 
     private void verifyLayoutOptionText(String expectedOptionText, boolean isLocked) throws AutomationException {
         WebElement layoutElement = driverUtil.getWebElement(layoutLockUnlockState);
-        WebElement layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionText,expectedOptionText ));
+        WebElement layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionText, expectedOptionText));
+
         if ((isLocked && layoutElement == null) || (!isLocked && layoutElement != null)) {
+            if (layoutOptionElement == null) {
+                throw new AutomationException("Layout option element not found for expected text '" + expectedOptionText + "'.");
+            }
             String actualOptionText = layoutOptionElement.getText();
-            Assert.assertEquals(actualOptionText, expectedOptionText, "The layout option text did not match the expected text'"+expectedOptionText+"'.");
+            if (!actualOptionText.equals(expectedOptionText)) {
+                throw new AutomationException("The layout option text '" + actualOptionText + "' did not match the expected text '" + expectedOptionText + "'.");
+            }
         } else {
-           String optionText =expectedOptionText.equalsIgnoreCase("Unlock Layout")?"Lock Layout":"Unlock Layout";
-            layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionText,optionText ));
+            String alternativeOptionText = expectedOptionText.equalsIgnoreCase("Unlock Layout") ? "Lock Layout" : "Unlock Layout";
+            layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionText, alternativeOptionText));
+            if (layoutOptionElement == null) {
+                throw new AutomationException("Alternative layout option element not found for expected text '" + alternativeOptionText + "'.");
+            }
             layoutOptionElement.click();
             String actualOptionText = layoutOptionElement.getText();
-            Assert.assertEquals(actualOptionText, expectedOptionText, "The layout option text did not match the expected text '"+expectedOptionText+"'.");
+            if (!actualOptionText.equals(expectedOptionText)) {
+                throw new AutomationException("The layout option text after clicking '" + actualOptionText + "' did not match the expected text '" + expectedOptionText + "'.");
+            }
         }
     }
 
     public void clickSelectedLayoutOption(String expectedLayoutOption) throws AutomationException {
-        WebElement layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionText,expectedLayoutOption));
+        WebElement layoutOptionElement = driverUtil.getWebElement(String.format(layoutOptionText, expectedLayoutOption));
         WebElement layoutElement = driverUtil.getWebElement(layoutLockUnlockState);
-        if ((expectedLayoutOption.equalsIgnoreCase("Unlock Layout")&& layoutElement==null)||(expectedLayoutOption.equalsIgnoreCase("Lock Layout")&& layoutElement!=null)){
+
+        if ((expectedLayoutOption.equalsIgnoreCase("Unlock Layout") && layoutElement == null) ||
+                (expectedLayoutOption.equalsIgnoreCase("Lock Layout") && layoutElement != null)) {
             layoutOptionElement.click();
         }
     }

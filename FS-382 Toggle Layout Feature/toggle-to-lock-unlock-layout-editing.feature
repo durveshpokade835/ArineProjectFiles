@@ -15,7 +15,7 @@ Feature: Toggle to lock/unlock layout editing
   @Regression @Smoke
   Scenario Outline: Verify_user_able_to_see_correct_visible_text_with_respect_to_active_layout_state
     When User clicks on the initials dropdown
-    And User hovers over the 'Layout' menu option
+    And User hovers over the "Layout" menu option
     Then The menu option should display "<Visible Text>" when Layout is "<Layout State>"
     Examples:
       | Visible Text  | Layout State |
