@@ -100,12 +100,12 @@ Feature: Verify Pharmacist Layout Feature
     And Search patient: "<Patient Id>"
     And Click on tab: "Profile and Action Plan"
     Then Check the layout state
-    And User add new medicine
-    Then User Select the recently added medication and try to change the Prescriber from the details pane
+    And User add new medicine "<Medicine Name>"
+    Then User Select the recently added medication "<Medicine Name>" and try to change the Prescriber "<Prescriber Option>" from the details pane
     And User Check the cursor does not get stuck
     Examples:
-      | Organization          | Patient Id                           |
-      | UHC Level-Funded Test | 29020cce-e113-4e6c-8b01-eeee3c568939 |
+      | Organization          | Patient Id                           | Medicine Name | Prescriber Option |
+      | UHC Level-Funded Test | 29020cce-e113-4e6c-8b01-eeee3c568939 | TESTOZOLE     | Self              |
 
   @Setup @Regression @Smoke
   Scenario: SETUP: Logout and Close Browser

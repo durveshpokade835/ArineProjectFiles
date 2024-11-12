@@ -112,19 +112,20 @@ public class ToggleToLockUnlockLayoutEditingSteps {
     public void check_the_layout_state() throws AutomationException {
         common.logInfo("Verify the layout state");
         PageFactory.layoutPage().verifyLayoutState();
-    }
-
-    @And("User add new medicine")
-    public void user_add_new_medicine() throws AutomationException {
-        common.logInfo("User add new medicine");
-        PageFactory.layoutPage().addNewMedicationWithoutPrescriber();
         takeScreenshot();
     }
 
-    @Then("User Select the recently added medication and try to change the Prescriber from the details pane")
-    public void user_select_recently_added_medication_and_change_prescriber() throws AutomationException {
+    @And("User add new medicine {string}")
+    public void user_add_new_medicine(String medicine) throws AutomationException {
+        common.logInfo("User add new medicine");
+        PageFactory.layoutPage().addNewMedicationWithoutPrescriber(medicine);
+        takeScreenshot();
+    }
+
+    @Then("User Select the recently added medication {string} and try to change the Prescriber {string} from the details pane")
+    public void user_select_recently_added_medication_and_change_prescriber(String medicine,String prescriberOption) throws AutomationException {
         common.logInfo("User Select the recently added medication and try to change the Prescriber from the details pane");
-        PageFactory.layoutPage().selectMedicationAndChangePrescriber();
+        PageFactory.layoutPage().selectMedicationAndChangePrescriber(medicine,prescriberOption);
         takeScreenshot();
     }
 

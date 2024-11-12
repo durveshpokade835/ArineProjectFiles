@@ -36,10 +36,18 @@ public class LayoutPage {
     private static final String LAYOUT_TOP_VALUE = "(//div[contains(@class,'react-grid-item')])[1]";
 
     private static final String ADD_MEDICINE_ICON = "//*[contains(@class,'MedDetailTable') and .//*[text()='Rx']]//*[contains(@class,'iconAdd')]";
-    private static final String MEDICATION_DETAILS_PANE = "";
-    private static final String PRESCRIBER_FIELD = "";
+//    private static final String MEDICATION_DETAILS_PANE = "";
+//    private static final String PRESCRIBER_FIELD = "";
     private static final String LAYOUT_SETTINGS = "//*[(contains(text(),'Unlock Layout') or contains(text(),'Lock Layout')) and //*[contains(@class,'submenu')]]";
     private static final String DRUG_NAME = "//*[contains(text(),'Drug Name')]/following-sibling::input";
+    private static final String SEARCH_BUTTON_LOCATOR = "//*[contains(@class,'svg-inline')]";
+    private static final String LOADER= "//*[contains(@class,'sync')]";
+    private static final String ADD_MEDICINE_BUTTON = "//*[contains(text(),'Add Med')]";
+    private static final String POPUP_CONTAINER = "//*[contains(@class,'popupLoaded')]";
+    private static final String TABLE_CONTAINER = "//table[contains(@class,'mantine-Table-root') and .//*[contains(@class,'MedDetailTable')]]";
+    private static final String TABLE_DATA_LOCATOR = "//div[contains(text(),'Rx')]/ancestor::table//tr/td[position()='%d']//span[contains(text(),'%s')]";
+    private static final String PRESCRIBER_INPUT_BUTTON = "//*[contains(@class,'mantine-Select-input') and //*[contains(text(),'Prescriber:')]]";
+
 
     public int initialTopPosition;
     private int savedTopPosition;
@@ -271,90 +279,90 @@ public class LayoutPage {
         }
     }
 
-    public void addNewMedicationWithoutPrescriber() throws AutomationException {
+    public void addNewMedicationWithoutPrescriber(String medicine) throws AutomationException {
         WebElement addMedIcon = driverUtil.getWebElement(ADD_MEDICINE_ICON);
         if (addMedIcon == null)
             throw new AutomationException("Unable to find add new medicine icon!");
         addMedIcon.click();
         try {
-            addNewMedicationDetails();
+            addNewMedicationDetails(medicine);
             System.out.println("Added new medication without assigning a prescriber.");
         } catch (Exception e) {
             throw new AutomationException("Failed to add medication details: " + e.getMessage());
         }
     }
 
-    private void addNewMedicationDetails() throws AutomationException {
+    private void addNewMedicationDetails(String medicine) throws AutomationException {
         WebElement drugElement = driverUtil.getWebElement(DRUG_NAME);
         if (drugElement == null) {
-            throw new AutomationException("Unable to locate the drug name field!");
+            throw new AutomationException("Unable to locate the Drug Name field!");
         }
 
-        drugElement.sendKeys("testozole");
+        drugElement.sendKeys(medicine);
 
         try {
-            WebDriverUtil.waitForVisibleElement(By.xpath("//*[contains(@class,'svg-inline')]"), 5);
-            WebElement addIcon = driverUtil.getWebElement("//*[contains(@class,'svg-inline')]");
+            WebDriverUtil.waitForVisibleElement(By.xpath(SEARCH_BUTTON_LOCATOR), 5);
+            WebElement addIcon = driverUtil.getWebElement(SEARCH_BUTTON_LOCATOR);
             if (addIcon == null) {
                 throw new AutomationException("Add icon not found after entering drug name.");
             }
             addIcon.click();
 
-            WebDriverUtil.waitForInvisibleElement(By.xpath("//*[contains(@class,'sync')]"), 5);
+            WebDriverUtil.waitForInvisibleElement(By.xpath(LOADER), 5);
 
-            WebElement addedMedElement = driverUtil.getWebElement("//div[contains(text(),'testozole')]", 5);
+            WebElement addedMedElement = driverUtil.getWebElement("//div[contains(text(),'"+medicine.toLowerCase()+"')]", 5);
             if (addedMedElement == null) {
-                throw new AutomationException("Unable to locate added medicine entry.");
+                throw new AutomationException("Unable to locate '"+medicine+"' medicine entry.");
             }
             addedMedElement.click();
 
-            WebDriverUtil.waitForVisibleElement(By.xpath("//*[contains(text(),'Add Med')]"), 5);
-            WebElement addMedButton = driverUtil.getWebElementAndScroll("//*[contains(text(),'Add Med')]", 10);
+            WebDriverUtil.waitForVisibleElement(By.xpath(ADD_MEDICINE_BUTTON), 5);
+            WebElement addMedButton = driverUtil.getWebElementAndScroll(ADD_MEDICINE_BUTTON, 10);
             if (addMedButton == null) {
                 throw new AutomationException("Add Med button not found on confirmation step.");
             }
             addMedButton.click();
 
-            WebDriverUtil.waitForInvisibleElement(By.xpath("//*[contains(@class,'sync')]"), 5);
+            WebDriverUtil.waitForInvisibleElement(By.xpath(LOADER), 5);
         } catch (Exception e) {
             throw new AutomationException("Error during medication addition: " + e.getMessage());
         }
     }
 
-    public void selectMedicationAndChangePrescriber() throws AutomationException {
+    public void selectMedicationAndChangePrescriber(String medicine, String prescriberOption) throws AutomationException {
         try {
             // Wait for any pop-ups to close and the medication table to become visible
-            WebDriverUtil.waitForInvisibleElement(By.xpath("//*[contains(@class,'popupLoaded')]"), 5);
-            WebDriverUtil.waitForVisibleElement(By.xpath("//table[contains(@class,'mantine-Table-root') and .//*[contains(@class,'MedDetailTable')]]"), 5);
+            WebDriverUtil.waitForInvisibleElement(By.xpath(POPUP_CONTAINER), 5);
+            WebDriverUtil.waitForVisibleElement(By.xpath(TABLE_CONTAINER), 5);
 
             // Scroll to the medication table
-            driverUtil.getWebElementAndScroll("//table[contains(@class,'mantine-Table-root') and .//*[contains(@class,'MedDetailTable')]]");
+            driverUtil.getWebElementAndScroll(TABLE_CONTAINER);
 
             // Determine the column index of 'Rx' header
             int index = driverUtil.getWebElements("//div[contains(text(),'Rx')]/ancestor::th/preceding-sibling::*").size() + 1;
 
             // Locate the specific medication (e.g., 'TESTOZOLE') in the table and scroll to it
-            WebElement rxDataElement = driverUtil.getWebElementAndScroll(String.format("//div[contains(text(),'Rx')]/ancestor::table//tr/td[position()='%d']//span[contains(text(),'TESTOZOLE')]", index));
+            WebElement rxDataElement = driverUtil.getWebElementAndScroll(String.format(TABLE_DATA_LOCATOR, index,medicine));
             if (rxDataElement == null) {
-                throw new AutomationException("Medication 'TESTOZOLE' not found in the medication table.");
+                throw new AutomationException("Medication '"+medicine+"' not found in the medication table.");
             }
             rxDataElement.click();
 
             // Locate and click on the prescriber dropdown
-            WebElement prescriberDropdown = driverUtil.getWebElementAndScroll("//*[contains(@class,'mantine-Select-input') and //*[contains(text(),'Prescriber:')]]");
+            WebElement prescriberDropdown = driverUtil.getWebElementAndScroll(PRESCRIBER_INPUT_BUTTON);
             if (prescriberDropdown == null) {
                 throw new AutomationException("Prescriber dropdown not found.");
             }
             prescriberDropdown.click();
 
             // Select the "Self" option from the dropdown
-            WebElement selfOption = driverUtil.getWebElement("//*[contains(text(),'Self')]");
+            WebElement selfOption = driverUtil.getWebElement(String.format("//*[contains(text(),'"+prescriberOption+"')]"));
             if (selfOption == null) {
-                throw new AutomationException("Option 'Self' not found in the prescriber dropdown.");
+                throw new AutomationException("Option '"+prescriberOption+"' not found in the prescriber dropdown.");
             }
             selfOption.click();
 
-            System.out.println("Medication selected and prescriber changed to 'Self'.");
+            System.out.println("Medication selected and prescriber changed to '"+prescriberOption+"'.");
 
         } catch (Exception e) {
             throw new AutomationException("Failed to select medication and change prescriber: " + e.getMessage());
