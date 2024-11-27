@@ -13,23 +13,33 @@ Feature: Verify Pharmacist Layout Feature
 
   @Regression @Smoke
     #FS-382:TC-01
-  Scenario: Verify_that_the_user_can_see_the_following_options_in_the_upper_right_with_the_users_initials_1_Manage_Access_2_Layout_3_Sign_Out
-    When User select organization: "ENG TEST"
+  Scenario: Verify_options_of_initials_dropdown
+    Given User select organization: "ENG TEST"
     When User clicks on user's initials dropdown
-    Then Verify that the user can see the options in the upper right "Manage Access, Layout, Sign Out"
+    And Verify initials dropdown has option
+      | Manage Access |
+      | Layout        |
+      | Sign Out      |
 
   @Regression @Smoke
     #FS-382:TC-02
-  Scenario: Verify_that_the_user_can_see_the_following_options_by_hovering_on_the_Manage_Access_field_1_MFA_Settings_2_Register_SSO_with_Google
-    When User clicks on Manage Access field
-    Then Verify that the user can see the options by hovering on the Manage Access field "MFA Settings" and "Register SSO with Google"
+  Scenario: Verify_options_of_manage_access_field
+    Given User clicks on user's initials dropdown
+    When User perform mouse hovering action on "Manage Access"
+    Then Verify Manage Access has option
+      | MFA Settings             |
+      | Register SSO with GOOGLE |
 
   @Regression @Smoke
     #FS-382:TC-03
-  Scenario: Verify_that_the_user_can_see_the_following_options_by_hovering_on_the_Layout_field_1_Lock_or_Unlock_Layout_2_Reset_layout
-#    When User clicks on user's initials dropdown
+  Scenario Outline: Verify_options_of_layout_field
+    Given User clicks on user's initials dropdown
     When User perform mouse hovering action on "Layout"
-    Then Verify that the user can see the options by hovering on the Layout field "Unlock Layout" and "Reset layout"
+    Then Verify Layout has option "<Layout Options>" when Layout is "<Layout State>" and "Reset Layout"
+    Examples:
+      | Layout Options | Layout State |
+      | Unlock Layout  | Locked       |
+      | Lock Layout    | Unlocked     |
 
   @Regression @Smoke
     #FS-382:TC-04 and TC-06
@@ -77,7 +87,7 @@ Feature: Verify Pharmacist Layout Feature
   Scenario Outline: Verify_users_layout_changes_are_saved
     Given User select organization: "<Organization>"
     And Click on Tasks Tab
-#    And User clicks on user's initials dropdown
+    And User clicks on user's initials dropdown
     And User perform mouse hovering action on "Layout"
     And User clicks on "Unlock Layout" option
     And User checks for initial layout position
@@ -103,6 +113,7 @@ Feature: Verify Pharmacist Layout Feature
     Then Check the layout state
     And User add new medicine "<Medicine Name>"
     Then User Select the recently added medication "<Medicine Name>" and try to change the Prescriber "<Prescriber Option>" from the details pane
+    Then Click on patient name link
     And User Check the cursor does not get stuck
     And User deletes newly Added Medicine "<Medicine Name>"
     Examples:
