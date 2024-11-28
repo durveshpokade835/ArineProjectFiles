@@ -16,8 +16,7 @@ public class LayoutPage {
     private static final String INITIAL_DROPDOWN_OPTIONS = "//*[contains(@class,'multilevel-dropdown-__menu')]//li[text()='%s']";
     private static final String SUB_MENU_OPTIONS = "//*[contains(@class,'multilevel-dropdown-__menu')]//li[contains(text(),'%s')]";
     private static final String LAYOUT_LOCK_UNLOCK_STATE = "//div[contains(@class,'react-grid-item react-draggable react-resizable')]";
-//    private static final String LAYOUT_ELEMENT_D = "//div[contains(@class,'-PatientTriageSelection')]";
-    private static final String LAYOUT_ELEMENT_D = "//div[contains(@class,'-PatientTriageSelection')]/parent::div[contains(@style,'top')]";
+    private static final String LAYOUT_ELEMENT_D = "//div[contains(@class,'-PatientTriageSelection')]";
     private static final String ADD_MEDICINE_ICON = "//*[contains(@class,'MedDetailTable') and .//*[text()='Rx']]//*[contains(@class,'iconAdd')]";
     private static final String TABLE_CONTAINER = "//table[contains(@class,'mantine-Table-root') and .//*[contains(@class,'MedDetailTable')]]";
     private static final String DRUG_NAME = "//*[contains(text(),'Drug Name')]/following-sibling::input";
@@ -31,7 +30,7 @@ public class LayoutPage {
     private static final String DELETE_WARNING_POPUP = "//*[contains(@class,'swal2-icon-warning')]";
     private static final String DELETE_CONFIRMATION_BUTTON = "//*[contains(@class,'swal2-confirm')]";
     private static final String LAYOUT_SETTINGS = "//*[(contains(text(),'Unlock Layout') or contains(text(),'Lock Layout')) and //*[contains(@class,'submenu')]]";
-    private static final String LAYOUT_TOP_VALUE = "(//div[contains(@class,'react-grid-item')])[1]";
+    private static final String LAYOUT_TOP_VALUE = "//div[contains(@class,'-PatientTriageSelection')]/parent::div[contains(@style,'top')]";
 
     public int initialTopPosition;
     private int savedTopPosition;
