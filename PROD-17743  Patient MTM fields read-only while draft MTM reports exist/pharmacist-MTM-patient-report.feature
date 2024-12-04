@@ -60,12 +60,35 @@ Feature: Verify Pharmacist Layout Feature
     And Click on patient name link
 
     Then Verify fields are disabled and tooltip contains: "You cannot change this field when there are draft CMR patient letters. To edit, please delete or archive the draft CMR patient letters."
-      | longTermCare | reviewType | impaired | rationale | cmrRecipientType | careof |
-
+      | longTermCare     |
+      | reviewType       |
+      | impaired         |
+      | rationale        |
+      | cmrRecipientType |
+      | careof           |
     Then Verify fields are disabled
-      | practiceGroup | optOutDate |
+      | practiceGroup |
+      | optOutDate    |
     Then Verify fields are editable
-      | address1 | address2 | city | zipcode | statecode | phone1 | phone2 | phone3 | use1 | use2 |use3| email | vm1 | vm2 | vm3 | vm4 | patientStatus |Allergies|optOut|
+      | address1      |
+      | address2      |
+      | city          |
+      | zipcode       |
+      | statecode     |
+      | phone1        |
+      | phone2        |
+      | phone3        |
+      | use1          |
+      | use2          |
+      | use3          |
+      | email         |
+      | vm1           |
+      | vm2           |
+      | vm3           |
+      | vm4           |
+      | patientStatus |
+      | Allergies     |
+      | optOut        |
 
     Then Click on complete CMR
     And Wait to page load

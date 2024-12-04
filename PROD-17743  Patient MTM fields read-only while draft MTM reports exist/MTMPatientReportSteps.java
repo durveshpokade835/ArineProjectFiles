@@ -11,7 +11,7 @@ import static com.arine.automation.glue.CommonSteps.takeScreenshot;
 public class MTMPatientReportSteps {
     CommonSteps common = new CommonSteps();
 
-    @Then("Verify fields are disabled and tooltip contains: {string}")
+    @Then("^Verify fields are disabled and tooltip contains: \"([^\"]*)\"$")
     public void verifyButtonIsDisabledAndToolTipMessage( String tooltipMessage,DataTable dataTable) throws AutomationException {
         common.logInfo("Fields should be disabled and correct tooltip message should get displayed" );
         PageFactory.mtmPatientReportPage().isFieldDisabled(dataTable);
@@ -19,20 +19,20 @@ public class MTMPatientReportSteps {
         takeScreenshot();
     }
 
-    @Then("Verify fields are editable")
+    @Then("^Verify fields are editable$")
     public void verifyFieldsAreNotEditable(DataTable dataTable) throws AutomationException {
         common.logInfo("Fields should not be disabled" );
         PageFactory.mtmPatientReportPage().isFieldEnabled(dataTable);
         takeScreenshot();
     }
 
-    @Then("Verify fields are disabled")
+    @Then("^Verify fields are disabled$")
     public void verifyFieldsAreDisabled(DataTable dataTable) throws AutomationException {
         common.logInfo("Fields should be disabled" );
         PageFactory.mtmPatientReportPage().isFieldDisabled(dataTable);
         takeScreenshot();
     }
-    @And("Verify fields are editable and no tooltip message is displayed")
+    @And("^Verify fields are editable and no tooltip message is displayed$")
     public void verifyFieldsAreNotEditableAndNoToolTipMessageIsDisplayed(DataTable dataTable) throws AutomationException {
         common.logInfo("Fields should not be disabled and no tooltip message is displayed" );
         PageFactory.mtmPatientReportPage().isFieldEnabled(dataTable);
