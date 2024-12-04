@@ -14,22 +14,21 @@ public class MTMPatientReportPage {
 
     Actions action = new Actions(DriverFactory.drivers.get());
 
+    public static final String FIELD_LOCATOR = "//*[@name='%s']";
+
     public void isFieldEnabled(DataTable dataTable) throws AutomationException {
 
         List<String> fieldNames = dataTable.asList();
 
         for (String fieldName : fieldNames) {
-            // Locate the element using the name attribute
-            String xpath = "//*[@name='" + fieldName + "']";
-            WebElement element = driverUtil.getWebElement(xpath);
+            WebElement element = driverUtil.getWebElement(String.format(FIELD_LOCATOR,fieldName));
             if (element == null)
                 throw new AutomationException("'" + fieldName + "'field not present in Patient Pane or it might not visible");
 
-            // Check if the element has the 'disabled' attribute
             String disabledAttribute = element.getAttribute("disabled");
 
             if (disabledAttribute != null) {
-                throw new AssertionError("Field '" + fieldName + "' is disabled.");
+                throw new AutomationException("Field '" + fieldName + "' is disabled.");
             }
         }
     }
@@ -38,16 +37,14 @@ public class MTMPatientReportPage {
         List<String> fieldNames = dataTable.asList();
 
         for (String fieldName : fieldNames) {
-            String xpath = "//*[@name='" + fieldName + "']";
-            WebElement element = driverUtil.getWebElement(xpath);
+            WebElement element = driverUtil.getWebElement(String.format(FIELD_LOCATOR,fieldName));
             if (element == null)
                 throw new AutomationException("'" + fieldName + "'field not present in Patient Pane or it might not visible");
 
-            // Check if the element has the 'disabled' attribute
             String disabledAttribute = element.getAttribute("disabled");
 
             if (disabledAttribute == null) {
-                throw new AssertionError("Field '" + fieldName + "' is not disabled.");
+                throw new AutomationException("Field '" + fieldName + "' is not disabled.");
             }
 
         }
@@ -57,8 +54,7 @@ public class MTMPatientReportPage {
         List<String> fieldNames = dataTable.asList();
 
         for (String fieldName : fieldNames) {
-            String xpath = "//*[@name='" + fieldName + "']";
-            WebElement element = driverUtil.getWebElement(xpath);
+            WebElement element = driverUtil.getWebElement(String.format(FIELD_LOCATOR,fieldName));
 
             if (element == null)
                 throw new AutomationException("'" + fieldName + "' button not present in Patient Pane or it might not visible");
