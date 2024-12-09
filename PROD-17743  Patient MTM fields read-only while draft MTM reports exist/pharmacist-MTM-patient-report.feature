@@ -12,7 +12,6 @@ Feature: Verify Pharmacist Layout Feature
       | $pharmacist-MTM-patient-report.user1.username | $pharmacist-MTM-patient-report.user1.password | success |
 
   Scenario Outline: Verify_Patient_MTM_fields_read_only_while_draft_MTM_reports_exist.
-
     Given User select organization: "<Organization>"
     When Click on Patient Tab
     And Search patient: "<Patient Id>"
@@ -69,6 +68,24 @@ Feature: Verify Pharmacist Layout Feature
     Then Verify fields are disabled
       | practiceGroup |
       | optOutDate    |
+    Examples:
+      | Organization         | Patient Id                           | mtmOPTOutReason | LTCDropDown  | ImpairedDropDown | RecipientDropDown | Message                           |
+      | Priority Health test | fe2b1e12-76f6-4c8e-96a9-820e456cfc43 | optOut          | longTermCare | impaired         | cmrRecipientType  | The CMR has been marked completed |
+
+
+  Scenario Outline: Verify_some_Patient_MTM_fields_are_editable_while_draft_MTM_reports_exist.
+    When Click on Patient Tab
+    And Search patient: "<Patient Id>"
+    And Click on tab: "Profile and Action Plan"
+    And Click on button: "Rerun Analysis"
+    And Click on tab: "Reports"
+    And Click on button: "Make MTM Reports"
+    Then Select review type: "CMR"
+    And Click on button: "Generate Reports"
+    Then Select current date as conversation from generate reports popup
+    And Click on button "Generate" present in generate reports confirmation popup
+    Then Wait to page load
+    And Click on patient name link
     Then Verify fields are editable
       | address1      |
       | address2      |
@@ -89,6 +106,22 @@ Feature: Verify Pharmacist Layout Feature
       | patientStatus |
       | Allergies     |
       | optOut        |
+    Examples:
+      | Patient Id                           |
+      | fe2b1e12-76f6-4c8e-96a9-820e456cfc43 |
+
+  Scenario Outline: Verify_some_Patient_MTM_fields_are_editable_when_no_draft_MTM_reports_exist.
+    When Click on Patient Tab
+    And Search patient: "<Patient Id>"
+    And Click on tab: "Profile and Action Plan"
+    And Click on button: "Rerun Analysis"
+    And Click on tab: "Reports"
+    And Click on button: "Make MTM Reports"
+    Then Select review type: "CMR"
+    And Click on button: "Generate Reports"
+    Then Select current date as conversation from generate reports popup
+    And Click on button "Generate" present in generate reports confirmation popup
+    Then Wait to page load
 
     Then Click on complete CMR
     And Wait to page load
@@ -96,15 +129,19 @@ Feature: Verify Pharmacist Layout Feature
     And Click on button "OK" present in confirmation popUp
     And Click on button: "Existing Reports"
     Then User archive all existing reports
-
     And Click on patient name link
     And User clicks on "<ImpairedDropDown>" dropDown and select "Yes" value
     Then Verify user able to select rationale value as "BIMS Score" in "Please enter rationale" popup
     Then Verify fields are editable and no tooltip message is displayed
-      | longTermCare | reviewType | impaired | rationale | cmrRecipientType | careof |
+      | longTermCare     |
+      | reviewType       |
+      | impaired         |
+      | rationale        |
+      | cmrRecipientType |
+      | careof           |
     Examples:
-      | Organization         | Patient Id                           | mtmOPTOutReason | LTCDropDown  | ImpairedDropDown | RecipientDropDown | Message                           |
-      | Priority Health test | fe2b1e12-76f6-4c8e-96a9-820e456cfc43 | optOut          | longTermCare | impaired         | cmrRecipientType  | The CMR has been marked completed |
+    | Patient Id                           | ImpairedDropDown |
+    | fe2b1e12-76f6-4c8e-96a9-820e456cfc43 | impaired         |
 
   @Setup @Regression @Smoke
   Scenario: SETUP: Logout and Close Browser
