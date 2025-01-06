@@ -83,11 +83,4 @@ public class PractitionerPageSteps {
         PageFactory.practionerDRPtablePage().userUpdateDRPsCurrentResponseDateFromDRPsPaneArea();
         takeScreenshot();
     }
-
-//    @And("^User gets the initial value of \"([^\"]*)\" of \"([^\"]*)\" in practitioner tab$")
-//    public void userGetsTheInitialValueOf(String columnName, String practitioner) throws AutomationException {
-//        common.logInfo("User gets the initial value of " + columnName + " of " + practitioner + " in practitioner tab");
-//        PageFactory.practionerDRPtablePage().getValueInPractitionerTable(columnName, practitioner);
-//        takeScreenshot();
-//    }
 }
