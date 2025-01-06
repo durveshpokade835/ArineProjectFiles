@@ -7,6 +7,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 
+import java.text.ParseException;
+
 import static com.arine.automation.glue.CommonSteps.takeScreenshot;
 import static com.arine.automation.pages.PractionerDRPtablePage.INITIAL_VALUE;
 
@@ -20,7 +22,7 @@ public class PractitionerPageSteps {
         takeScreenshot();
     }
 
-    @Then("^User updates \"([^\"]*)\" to \"([^\"]*)\" in practitioner tab$")
+    @Then("^User updates \"([^\"]*)\" dropdown to \"([^\"]*)\" value in practitioner tab$")
     public void userClicksOnDropDownAndEditImplementationStatus(String dropDownName, String value) throws AutomationException {
         common.logInfo("User clicks on '" + dropDownName + "' dropDown and select '" + value + " option");
         PageFactory.practionerDRPtablePage().userClicksOnDropDownAndSelectsValue(dropDownName, value);
@@ -34,14 +36,14 @@ public class PractitionerPageSteps {
         takeScreenshot();
     }
 
-    @And("^Get data \"([^\"]*)\" for \"([^\"]*)\"$")
+    @And("^User gets the initial value of \"([^\"]*)\" for \"([^\"]*)\" in practitioner tab$")
     public void getDataOf(String columnName, String practitioner) throws AutomationException {
         common.logInfo("User gets the initial value of " + columnName + " of " + practitioner + " in practitioner tab");
         PageFactory.practionerDRPtablePage().getValueInPractitionerTable(columnName, practitioner);
         takeScreenshot();
     }
 
-    @And("^Verify \"([^\"]*)\" for \"([^\"]*)\" remains unchanged$")
+    @And("^User verifies initial value of \"([^\"]*)\" for \"([^\"]*)\" remains unchanged in practitioner tab$")
     public void verifyValueRemainsUnchanged(String columnName, String practitioner) throws AutomationException {
         PageFactory.practionerDRPtablePage().verifyUpdatedColumnStatusInPractitionerTable(columnName, INITIAL_VALUE, practitioner);
         takeScreenshot();
@@ -56,8 +58,29 @@ public class PractitionerPageSteps {
 
     @Then("^Verify fields are editable in practioner Tab$")
     public void verifyFieldsAreNotEditable(DataTable dataTable) throws AutomationException {
-        common.logInfo("Fields should not be disabled" );
+        common.logInfo("Verify fields are editable in practioner Tab" );
         PageFactory.practionerDRPtablePage().isFieldEnabled(dataTable);
+        takeScreenshot();
+    }
+
+    @Then("^Verify \"([^\"]*)\" date column is updated as current date for \"([^\"]*)\" in practitioner tab$")
+    public void verifyDateColumnIsUpdatedAsCurrentDateForInPractitionerTab(String columnName, String practitioner) throws AutomationException {
+        common.logInfo(String.format("Verify %s column is updated with current date for %s practitioner in practitioner tab", columnName, practitioner));
+        PageFactory.practionerDRPtablePage().verifyUpdatedDateStatusInPractitionerTable(columnName, practitioner);
+        takeScreenshot();
+    }
+
+    @And("^User tries to change \"([^\"]*)\" and verifies it$")
+    public void userTriesToChange(String fieldName) throws AutomationException {
+        common.logInfo(String.format("User tries to change "+fieldName));
+        PageFactory.practionerDRPtablePage().changeValueOfField(fieldName);
+        takeScreenshot();
+    }
+
+    @And("^User update drps current response date from drps pane area$")
+    public void userUpdateDrpsCurrentResponseDateFromDrpsPaneArea() throws AutomationException, ParseException {
+        common.logInfo("User update drps current response date from drps pane area");
+        PageFactory.practionerDRPtablePage().userUpdateDRPsCurrentResponseDateFromDRPsPaneArea();
         takeScreenshot();
     }
 
