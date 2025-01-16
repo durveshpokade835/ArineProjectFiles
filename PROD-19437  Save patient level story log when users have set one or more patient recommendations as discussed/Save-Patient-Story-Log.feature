@@ -19,7 +19,6 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     And User search practitioner by npi: "<NPI>"
     Then Wait to page load
     And Click on button "Follow Up" which is in campaigns button
-#    And Click on log action icon button from report history table
     And Click on log action button from report history table
     And Verify text on screen "Log New Action"
     Then User update log action with below information:
@@ -49,7 +48,6 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     And User search practitioner by npi: "<NPI>"
     Then Wait to page load
     And Click on button "Follow Up" which is in campaigns button
-#    And Click on log action icon button from report history table
     And Click on log action button from report history table
     And Verify text on screen "Log New Action"
     Then User update log action with below information:
@@ -78,7 +76,6 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     And Click on campaigns tab
     Then User select campaigns date as: "<CampaignDate>"
     And User select campaign run date as: "<RunDate>"
-#    And Click on log action icon button from report history table
     And Click on log action button from report history table
     And Verify text on screen "Log New Action"
     Then User update log action with below information:
@@ -88,9 +85,7 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     Then Select "Discussed Practitioner Report" from Steps Performed ComboBox
     And selects patient recommendations from the Report Discussion Selector table
     And clicks on the Log Action button and verify PopUp
-    And Click on Practitioners Tab
-    And User search practitioner by npi: "<NPI>"
-    And Click on practitioner search icon
+    Then Verify user redirect to practitioners tab when click on provider name: "<Practitioner>"
     Then Wait to page load
     And Click on button "Story" which is in campaigns button
     Then Verify newly created log action for "<string1>" in story tab for prescriber analytics feature
@@ -99,8 +94,8 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     Then Verify newly created log action for "<string4>" in story tab for prescriber analytics feature
     And Delete newly created practitioner timeline log action
     Examples:
-      | Organization                      | CampaignDate    | RunDate    | NPI        | string1 | string2  | string3         | string4  |
-      | Admin Portal Test Patient Org DEV | Test Campaign 1 | 05/11/2024 | 1750393690 | Call    | Outbound | Medical Records | Answered |
+      | Organization                      | CampaignDate    | RunDate    | string1 | string2  | string3         | string4  | Practitioner                                       |
+      | Admin Portal Test Patient Org DEV | Test Campaign 1 | 05/11/2024 | Call    | Outbound | Medical Records | Answered | Bichael TestJordan_specialist_in_nephrologist_0001 |
 
   @Regression @Smoke
   Scenario Outline: Verify_no_confirmation_dialog_in_campaign-based_workflow_when_recommendations_are_not_discussed
@@ -108,7 +103,6 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     And Click on campaigns tab
     Then User select campaigns date as: "<CampaignDate>"
     And User select campaign run date as: "<RunDate>"
-#    And Click on log action icon button from report history table
     And Click on log action button from report history table
     And Verify text on screen "Log New Action"
     Then User update log action with below information:
@@ -117,9 +111,7 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     Then Remove "Discussed Practitioner Report" from Steps Performed ComboBox
     Then Select "Confirmed Fax Received" from Steps Performed ComboBox
     And clicks on the Log Action button and verify PopUp
-    And Click on Practitioners Tab
-    And User search practitioner by npi: "<NPI>"
-    And Click on practitioner search icon
+    Then Verify user redirect to practitioners tab when click on provider name: "<Practitioner>"
     Then Wait to page load
     And Click on button "Story" which is in campaigns button
     Then Verify newly created log action for "<string1>" in story tab for prescriber analytics feature
@@ -128,8 +120,8 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     Then Verify newly created log action for "<string4>" in story tab for prescriber analytics feature
     And Delete newly created practitioner timeline log action
     Examples:
-      | Organization                      |CampaignDate    | RunDate    | string1 | string2  | string3         | string4  |
-      | Admin Portal Test Patient Org DEV |Test Campaign 1 | 05/11/2024 | Call    | Outbound | Medical Records | Answered |
+      | Organization                      | CampaignDate    | RunDate    | string1 | string2  | string3         | string4  | Practitioner                                       |
+      | Admin Portal Test Patient Org DEV | Test Campaign 1 | 05/11/2024 | Call    | Outbound | Medical Records | Answered | Bichael TestJordan_specialist_in_nephrologist_0001 |
 
   @Setup @Regression @Smoke
   Scenario: SETUP: Logout and Close Browser

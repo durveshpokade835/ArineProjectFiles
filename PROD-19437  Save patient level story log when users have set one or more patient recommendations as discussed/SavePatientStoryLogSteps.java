@@ -2,23 +2,15 @@ package com.arine.automation.glue;
 
 import com.arine.automation.exception.AutomationException;
 import com.arine.automation.pages.PageFactory;
-import com.aspose.pdf.Page;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import io.cucumber.datatable.DataTable;
 
-import java.text.ParseException;
-
 import static com.arine.automation.glue.CommonSteps.takeScreenshot;
 
 public class SavePatientStoryLogSteps {
+
     CommonSteps common = new CommonSteps();
-//    @And("^Click on log action icon button from report history table$")
-//    public void clickOnLogActionIconFromReportHistoryTable() throws AutomationException, ParseException {
-//        common.logInfo("Click on log action button from report history table");
-//        PageFactory.patientStoryLogPage().clickOnLogActionIconFromReportHistoryTable();
-//        takeScreenshot();
-//    }
 
     @Then("^User update log action with below information:$")
     public void userUpdateLogActionWithBelowInformation(DataTable data) throws AutomationException {
