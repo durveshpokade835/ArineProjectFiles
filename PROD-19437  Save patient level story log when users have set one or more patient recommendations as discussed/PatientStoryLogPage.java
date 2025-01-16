@@ -1,6 +1,7 @@
 package com.arine.automation.pages;
 
 import com.arine.automation.exception.AutomationException;
+import com.arine.automation.glue.CommonSteps;
 import io.cucumber.datatable.DataTable;
 import org.openqa.selenium.WebElement;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import static com.arine.automation.glue.CommonSteps.driverUtil;
 
 public class PatientStoryLogPage {
-
+    CommonSteps common = new CommonSteps();
     public static final String LOG_ACTION_FIELDS_LOCATOR = "//*[contains(@class,'mantine-Stack-root')]//following::input[contains(@placeholder,'Select %s')]";
     public static final String LOG_ACTION_FIELDS_VALUES = "//*[contains(@class,'mantine-Select-item') and text()='%s']";
     public static final String PATIENT_RECOMMENDATION_FIELD = "//*[contains(text(),'Patient Recommendations')]/ following::input[contains(@type,'checkbox') and contains(@aria-label,'Toggle select row')][1]";
@@ -63,6 +64,7 @@ public class PatientStoryLogPage {
 
     public void verifyMessage(boolean isDiscussedPractitionerSelected) throws AutomationException {
         if (isDiscussedPractitionerSelected && popUpScreenVerifcation()) {
+            CommonSteps.takeScreenshot();
             WebElement textField = driverUtil.getWebElement("//*[contains(@class,'mantine-Card-root')]/div[contains(@class,'mantine-Text-root')]");
             if (textField == null)
                 throw new AutomationException("Unable to find Pop Up message Field");
@@ -70,20 +72,24 @@ public class PatientStoryLogPage {
             String ActualText = textField.getText();
             if (!ActualText.contains(ExpectedText))
                 throw new AutomationException(String.format("Expected pop up message is %s but found %s", ExpectedText, ActualText));
-            System.out.println("confirmation dialog is displayed when the user logs the Practitioner story, and the user has indicated that patient recommendations were discussed.");
+            common.logInfo("Confirmation dialog Should displayed As Expected");
+            System.out.println("Confirmation dialog is displayed when the user logs the Practitioner story, and the user has indicated that patient recommendations were discussed.");
             WebElement confirmButton = driverUtil.getWebElement("//*[@type='button']//*[contains(text(),'Yes')]");
             if (confirmButton == null)
                 throw new AutomationException("Unable to find confirmation button on popUp Screen");
             confirmButton.click();
             driverUtil.waitForLoadingPage();
         } else if (!isDiscussedPractitionerSelected && !popUpScreenVerifcation()) {
-            System.out.println("the system does not display a confirmation dialog when the user logs the Practitioner story, and the user has not indicated that patient recommendations were discussed.");
+            CommonSteps.takeScreenshot();
+            common.logInfo("System does not display a confirmation dialog as Expected");
+            System.out.println("System does not display a confirmation dialog when the user logs the Practitioner story, and the user has not indicated that patient recommendations were discussed.");
             driverUtil.waitForLoadingPage();
         }
     }
 
     public boolean popUpScreenVerifcation() throws AutomationException {
         boolean isPopUp = false;
+        CommonSteps.takeScreenshot();
         WebElement popUpScreen = driverUtil.getWebElement("//*[contains(@class,'mantine-Card-root')]");
         if (popUpScreen != null) {
              isPopUp = popUpScreen.isDisplayed();

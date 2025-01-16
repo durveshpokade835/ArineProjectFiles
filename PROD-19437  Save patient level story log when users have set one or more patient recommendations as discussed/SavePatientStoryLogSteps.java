@@ -30,6 +30,5 @@ public class SavePatientStoryLogSteps {
     public void clicksOnTheLogActionButtonAndVerifyPopUp() throws AutomationException {
         common.logInfo("clicks on the Log Action button and verify PopUp");
         PageFactory.patientStoryLogPage().clickOnLogActionButton();
-        takeScreenshot();
     }
 }
