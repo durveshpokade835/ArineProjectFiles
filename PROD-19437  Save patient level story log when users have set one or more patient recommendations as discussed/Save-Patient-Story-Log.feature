@@ -27,7 +27,7 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     Then Remove "Discussed Practitioner Report" from Steps Performed ComboBox
     Then Select "Discussed Practitioner Report" from Steps Performed ComboBox
     And selects patient recommendations from the Report Discussion Selector table
-    And clicks on the Log Action button and verify PopUp
+    And clicks on the "Log Action" button and verify PopUp "<string>"
     And User search practitioner by npi: "<NPI>"
     And Click on practitioner search icon
     Then Wait to page load
@@ -38,8 +38,8 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     Then Verify newly created log action for "<string4>" in story tab for prescriber analytics feature
     And Delete newly created practitioner timeline log action
     Examples:
-      | Organization                      | NPI        | string1 | string2  | string3         | string4  |
-      | Admin Portal Test Patient Org DEV | 1750393690 | Call    | Outbound | Medical Records | Answered |
+      | Organization                      | NPI        | string1 | string2  | string3         | string4  |string                                                                   |
+      | Admin Portal Test Patient Org DEV | 1750393690 | Call    | Outbound | Medical Records | Answered | Submitting this action will create story logs for the selected patients. |
 
   @Regression @Smoke
   Scenario Outline: Verify_no_confirmation_dialog_when_patient_recommendations_are_not_discussed
@@ -55,7 +55,7 @@ Feature: Save Story Logs for Discussed Patient Recommendations
       | <string1> | <string2> | <string3>   | <string4> |
     Then Remove "Discussed Practitioner Report" from Steps Performed ComboBox
     Then Select "Confirmed Fax Received" from Steps Performed ComboBox
-    And clicks on the Log Action button and verify PopUp
+    And clicks on the "Log Action" button and verify PopUp "<string>"
     And Click on Practitioners Tab
     And User search practitioner by npi: "<NPI>"
     And Click on practitioner search icon
@@ -67,8 +67,8 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     Then Verify newly created log action for "<string4>" in story tab for prescriber analytics feature
     And Delete newly created practitioner timeline log action
     Examples:
-      | Organization                      | NPI        | string1 | string2  | string3         | string4  |
-      | Admin Portal Test Patient Org DEV | 1750393690 | Call    | Outbound | Medical Records | Answered |
+      | Organization                      | NPI        | string1 | string2  | string3         | string4  |string                                                                   |
+      | Admin Portal Test Patient Org DEV | 1750393690 | Call    | Outbound | Medical Records | Answered | Submitting this action will create story logs for the selected patients. |
 
   @Regression @Smoke
   Scenario Outline:Verify_confirmation_dialog_and_practitioner_story_log_generation_in_a_campaign_tab
@@ -84,7 +84,7 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     Then Remove "Discussed Practitioner Report" from Steps Performed ComboBox
     Then Select "Discussed Practitioner Report" from Steps Performed ComboBox
     And selects patient recommendations from the Report Discussion Selector table
-    And clicks on the Log Action button and verify PopUp
+    And clicks on the "Log Action" button and verify PopUp "<string>"
     Then Verify user redirect to practitioners tab when click on provider name: "<Practitioner>"
     Then Wait to page load
     And Click on button "Story" which is in campaigns button
@@ -93,10 +93,9 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     Then Verify newly created log action for "<string3>" in story tab for prescriber analytics feature
     Then Verify newly created log action for "<string4>" in story tab for prescriber analytics feature
     And Delete newly created practitioner timeline log action
-
     Examples:
-      | Organization                      | CampaignDate    | RunDate    | string1 | string2  | string3         | string4  | Practitioner                                       |
-      | Admin Portal Test Patient Org DEV | Test Campaign 1 | 05/11/2024 | Call    | Outbound | Medical Records | Answered | Bichael TestJordan_specialist_in_nephrologist_0001 |
+      | Organization                      | CampaignDate    | RunDate    | string1 | string2  | string3         | string4  | Practitioner                                       |string                                                                   |
+      | Admin Portal Test Patient Org DEV | Test Campaign 1 | 05/11/2024 | Call    | Outbound | Medical Records | Answered | Bichael TestJordan_specialist_in_nephrologist_0001 | Submitting this action will create story logs for the selected patients. |
 
   @Regression @Smoke
   Scenario Outline: Verify_no_confirmation_dialog_in_campaign_tab_workflow_when_recommendations_are_not_discussed
@@ -111,7 +110,7 @@ Feature: Save Story Logs for Discussed Patient Recommendations
       | <string1> | <string2> | <string3>   | <string4> |
     Then Remove "Discussed Practitioner Report" from Steps Performed ComboBox
     Then Select "Confirmed Fax Received" from Steps Performed ComboBox
-    And clicks on the Log Action button and verify PopUp
+    And clicks on the "Log Action" button and verify PopUp "<string>"
     Then Verify user redirect to practitioners tab when click on provider name: "<Practitioner>"
     Then Wait to page load
     And Click on button "Story" which is in campaigns button
@@ -121,8 +120,8 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     Then Verify newly created log action for "<string4>" in story tab for prescriber analytics feature
     And Delete newly created practitioner timeline log action
     Examples:
-      | Organization                      | CampaignDate    | RunDate    | string1 | string2  | string3         | string4  | Practitioner                                       |
-      | Admin Portal Test Patient Org DEV | Test Campaign 1 | 05/11/2024 | Call    | Outbound | Medical Records | Answered | Bichael TestJordan_specialist_in_nephrologist_0001 |
+      | Organization                      | CampaignDate    | RunDate    | string1 | string2  | string3         | string4  | Practitioner                                       | string                                                                   |
+      | Admin Portal Test Patient Org DEV | Test Campaign 1 | 05/11/2024 | Call    | Outbound | Medical Records | Answered | Bichael TestJordan_specialist_in_nephrologist_0001 | Submitting this action will create story logs for the selected patients. |
 
   @Setup @Regression @Smoke
   Scenario: SETUP: Logout and Close Browser

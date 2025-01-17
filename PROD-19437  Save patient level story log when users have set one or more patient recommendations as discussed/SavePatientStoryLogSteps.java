@@ -26,9 +26,9 @@ public class SavePatientStoryLogSteps {
         takeScreenshot();
     }
 
-    @And("^clicks on the Log Action button and verify PopUp$")
-    public void clicksOnTheLogActionButtonAndVerifyPopUp() throws AutomationException {
+    @And("^clicks on the \"([^\"]*)\" button and verify PopUp \"([^\"]*)\"$")
+    public void clicksOnTheLogActionButtonAndVerifyPopUp(String button, String verificationMsg) throws AutomationException {
         common.logInfo("clicks on the Log Action button and verify PopUp");
-        PageFactory.patientStoryLogPage().clickOnLogActionButton();
+        PageFactory.patientStoryLogPage().clickOnLogActionButton(button,verificationMsg);
     }
 }

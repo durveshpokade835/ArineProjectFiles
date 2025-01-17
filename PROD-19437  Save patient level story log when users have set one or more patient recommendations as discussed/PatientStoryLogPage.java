@@ -14,7 +14,7 @@ public class PatientStoryLogPage {
     public static final String LOG_ACTION_FIELDS_LOCATOR = "//*[contains(@class,'mantine-Stack-root')]//following::input[contains(@placeholder,'Select %s')]";
     public static final String LOG_ACTION_FIELDS_VALUES = "//*[contains(@class,'mantine-Select-item') and text()='%s']";
     public static final String PATIENT_RECOMMENDATION_FIELD = "//*[contains(text(),'Patient Recommendations')]/ following::input[contains(@type,'checkbox') and contains(@aria-label,'Toggle select row')][1]";
-    public static final String LOG_ACTION_BUTTON_LOCATOR = "//*[@type='button']//*[contains(text(),'Continue') or contains(text(),'Log Action')]";
+    public static final String LOG_ACTION_BUTTON_LOCATOR = "//*[@type='button']//*[contains(text(),'Continue') or contains(text(),'%s')]";
 
     public void updateLogAction(DataTable dataTable) throws AutomationException {
         driverUtil.waitForLoadingPage();
@@ -49,31 +49,29 @@ public class PatientStoryLogPage {
         }
     }
 
-    public void clickOnLogActionButton() throws AutomationException {
+    public void clickOnLogActionButton(String button, String verificationMsg) throws AutomationException {
         boolean isDiscussedPractitionerSelected = false;
         WebElement stepsPerformedValue = driverUtil.getWebElement("//*[contains(@class,'mantine-MultiSelect-value') and @value='Discussed Practitioner Report']");
         if (stepsPerformedValue != null) {
             isDiscussedPractitionerSelected = stepsPerformedValue.isDisplayed();
         }
-        WebElement LogAction = driverUtil.getWebElement(LOG_ACTION_BUTTON_LOCATOR);
+        WebElement LogAction = driverUtil.getWebElement(String.format(LOG_ACTION_BUTTON_LOCATOR,button));
         if (LogAction == null)
             throw new AutomationException("Unable to find continue or Log Action Button");
         LogAction.click();
-        verifyMessage(isDiscussedPractitionerSelected);
+        verifyMessage(isDiscussedPractitionerSelected,verificationMsg);
     }
 
-    public void verifyMessage(boolean isDiscussedPractitionerSelected) throws AutomationException {
+    public void verifyMessage(boolean isDiscussedPractitionerSelected, String verificationMsg) throws AutomationException {
         if (isDiscussedPractitionerSelected && popUpScreenVerifcation()) {
             CommonSteps.takeScreenshot();
             WebElement textField = driverUtil.getWebElement("//*[contains(@class,'mantine-Card-root')]/div[contains(@class,'mantine-Text-root')]");
             if (textField == null)
                 throw new AutomationException("Unable to find Pop Up message Field");
-            String ExpectedText = "Submitting this action will create story logs for the selected patients.";
             String ActualText = textField.getText();
-            if (!ActualText.contains(ExpectedText))
-                throw new AutomationException(String.format("Expected pop up message is %s but found %s", ExpectedText, ActualText));
+            if (!ActualText.contains(verificationMsg))
+                throw new AutomationException(String.format("Expected pop up message is %s but found %s", verificationMsg, ActualText));
             common.logInfo("Confirmation dialog Should displayed As Expected");
-            System.out.println("Confirmation dialog is displayed when the user logs the Practitioner story, and the user has indicated that patient recommendations were discussed.");
             WebElement confirmButton = driverUtil.getWebElement("//*[@type='button']//*[contains(text(),'Yes')]");
             if (confirmButton == null)
                 throw new AutomationException("Unable to find confirmation button on popUp Screen");
@@ -82,7 +80,6 @@ public class PatientStoryLogPage {
         } else if (!isDiscussedPractitionerSelected && !popUpScreenVerifcation()) {
             CommonSteps.takeScreenshot();
             common.logInfo("System does not display a confirmation dialog as Expected");
-            System.out.println("System does not display a confirmation dialog when the user logs the Practitioner story, and the user has not indicated that patient recommendations were discussed.");
             driverUtil.waitForLoadingPage();
         }
     }
