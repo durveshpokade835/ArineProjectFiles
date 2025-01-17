@@ -32,7 +32,7 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     And Click on practitioner search icon
     Then Wait to page load
     And Click on button "Story" which is in campaigns button
-    Then Verify newly created log action for "<string1>" in story tab for prescriber analytics feature
+    And Verify newly created practitioners log action "<string1>" is generated on current date and time
     Then Verify newly created log action for "<string2>" in story tab for prescriber analytics feature
     Then Verify newly created log action for "<string3>" in story tab for prescriber analytics feature
     Then Verify newly created log action for "<string4>" in story tab for prescriber analytics feature
@@ -61,7 +61,7 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     And Click on practitioner search icon
     Then Wait to page load
     And Click on button "Story" which is in campaigns button
-    Then Verify newly created log action for "<string1>" in story tab for prescriber analytics feature
+    And Verify newly created practitioners log action "<string1>" is generated on current date and time
     Then Verify newly created log action for "<string2>" in story tab for prescriber analytics feature
     Then Verify newly created log action for "<string3>" in story tab for prescriber analytics feature
     Then Verify newly created log action for "<string4>" in story tab for prescriber analytics feature
@@ -88,17 +88,18 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     Then Verify user redirect to practitioners tab when click on provider name: "<Practitioner>"
     Then Wait to page load
     And Click on button "Story" which is in campaigns button
-    Then Verify newly created log action for "<string1>" in story tab for prescriber analytics feature
+    And Verify newly created practitioners log action "<string1>" is generated on current date and time
     Then Verify newly created log action for "<string2>" in story tab for prescriber analytics feature
     Then Verify newly created log action for "<string3>" in story tab for prescriber analytics feature
     Then Verify newly created log action for "<string4>" in story tab for prescriber analytics feature
     And Delete newly created practitioner timeline log action
+
     Examples:
       | Organization                      | CampaignDate    | RunDate    | string1 | string2  | string3         | string4  | Practitioner                                       |
       | Admin Portal Test Patient Org DEV | Test Campaign 1 | 05/11/2024 | Call    | Outbound | Medical Records | Answered | Bichael TestJordan_specialist_in_nephrologist_0001 |
 
   @Regression @Smoke
-  Scenario Outline: Verify_no_confirmation_dialog_in_campaign-based_workflow_when_recommendations_are_not_discussed
+  Scenario Outline: Verify_no_confirmation_dialog_in_campaign_tab_workflow_when_recommendations_are_not_discussed
     Given User select organization: "<Organization>"
     And Click on campaigns tab
     Then User select campaigns date as: "<CampaignDate>"
@@ -114,7 +115,7 @@ Feature: Save Story Logs for Discussed Patient Recommendations
     Then Verify user redirect to practitioners tab when click on provider name: "<Practitioner>"
     Then Wait to page load
     And Click on button "Story" which is in campaigns button
-    Then Verify newly created log action for "<string1>" in story tab for prescriber analytics feature
+    And Verify newly created practitioners log action "<string1>" is generated on current date and time
     Then Verify newly created log action for "<string2>" in story tab for prescriber analytics feature
     Then Verify newly created log action for "<string3>" in story tab for prescriber analytics feature
     Then Verify newly created log action for "<string4>" in story tab for prescriber analytics feature
