@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.arine.automation.glue.CommonSteps.takeScreenshot;
 import static com.arine.automation.pages.AdminPortalHomePage.driverUtil;
-import static com.arine.automation.pages.PatientMTMFieldPage.FIELD_LOCATOR;
+//import static com.arine.automation.pages.PatientMTMFieldPage.FIELD_LOCATOR;
 import static com.arine.automation.pages.PatientPage.scrollToTop;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
@@ -123,6 +123,7 @@ public class PractitionersPage extends BasePage {
     public static final String LOG_ACTION_FIELDS_VALUES = "//*[contains(@class,'mantine-Select-item') and text()='%s']";
     public static final String PATIENT_RECOMMENDATION_FIELD = "//*[contains(text(),'Patient Recommendations')]/ following::input[contains(@type,'checkbox') and contains(@aria-label,'Toggle select row')][1]";
     public static final String LOG_ACTION_BUTTON_LOCATOR = "//*[@type='button']//*[contains(text(),'Continue') or contains(text(),'%s')]";
+    public static final String FIELD_LOCATOR = "//*[text() = '%s']/../parent::*//input[not (@type='hidden')]";
 
 
     public static Map<String, Integer> GLOBAL_DETAILS_TAB_MAPPING = new HashMap<>();

@@ -12,8 +12,8 @@ import static com.arine.automation.glue.CommonSteps.driverUtil;
 
 public class PatientMTMFieldPage {
 
-    //    public static final String FIELD_LOCATOR = "//*[@name='%s']";
-    public static final String FIELD_LOCATOR = "//*[text() = '%s']/../parent::*//input[not (@type='hidden')]";
+    public static final String FIELD_LOCATOR = "//*[@name='%s']";
+//    public static final String FIELD_LOCATOR = "//*[text() = '%s']/../parent::*//input[not (@type='hidden')]";
     Actions action = new Actions(DriverFactory.drivers.get());
 
     public void isFieldEnabled(DataTable dataTable) throws AutomationException {
