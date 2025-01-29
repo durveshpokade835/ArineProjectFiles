@@ -24,4 +24,11 @@ public class ReportAlgorithmAndPatientQueryServiceSteps {
         common.logInfo("Verify patients column data for respective patient");
         PageFactory.reportAlgorithmAndPatientQueryServicePage().verifyPatientsColumnDataForRespectivePatient();
     }
+
+    @And("^selects All patient recommendations from the Report Discussion Selector table$")
+    public void selectsAllPatientRecommendationsFromTheReportDiscussionSelectorTable() throws AutomationException {
+        common.logInfo("selects patient recommendations from the Report Discussion Selector table");
+        PageFactory.reportAlgorithmAndPatientQueryServicePage().userSelectsAllPatientRecommendations();
+        takeScreenshot();
+    }
 }

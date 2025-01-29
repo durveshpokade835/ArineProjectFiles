@@ -52,13 +52,28 @@ Feature: Report-Specific Algorithms and Patients Query Service
     Then Verify report contains: "<string2>"
     And Click on button "Close" which is in campaigns button
     And Click on log action button from report history table
+    And Verify text on screen "Log New Action"
+    Then User update log action with below information:
+      | Action   | Type   | Stakeholder   | Outcome   |
+      | <Action> | <Type> | <Stakeholder> | <Outcome> |
+    Then Remove "Discussed Practitioner Report" from Steps Performed ComboBox
+    Then Select "Discussed Practitioner Report" from Steps Performed ComboBox
     Then Verify patients Algorithm column data for respective patient in patient Recommendation table
-    And selects patient recommendations from the Report Discussion Selector table
-#    And clicks on the "Log Action" button and verify PopUp "<string>"
+    And selects All patient recommendations from the Report Discussion Selector table
+    And clicks on the "Log Action" button and verify PopUp "<string>"
+    And User search practitioner by npi: "<NPI>"
+    And Click on practitioner search icon
+    Then Wait to page load
+    And Click on button "Story" which is in campaigns button
+    And Verify newly created practitioners log action "<Action>" is generated on current date and time
+    Then Verify newly created log action for "<Type>" in story tab for prescriber analytics feature
+    Then Verify newly created log action for "<Stakeholder>" in story tab for prescriber analytics feature
+    Then Verify newly created log action for "<Outcome>" in story tab for prescriber analytics feature
+    And Delete newly created practitioner timeline log action
 
     Examples:
-      | Organization                      | NPI        | CampaignDate    | searchFilterName   | filterValue1 | patient1               | filterValue2 | patient2              | whichDRPOption | WhatTypeOfReportOption | FaxNumber    | ColumnName | ColumnValue | string                                                                   | string1                | string2               |
-      | Admin Portal Test Patient Org DEV | 2323232323 | Test Campaign 1 | Patient First Name | TestMargaret | TestMargaret TestSmith | TestRussell  | TestRussell TestHeath | Selected DRPs  | Multi-patient Report   | 989-998-9889 | Patients   | 2           | Submitting this action will create story logs for the selected patients. | TESTMARGARET TESTSMITH | TESTRUSSELL TESTHEATH |
+      | Organization                      | NPI        | CampaignDate    | searchFilterName   | filterValue1 | patient1               | filterValue2 | patient2              | whichDRPOption | WhatTypeOfReportOption | FaxNumber    | ColumnName | ColumnValue | string                                                                   | string1                | string2               | Action | Type     | Stakeholder     | Outcome  |
+      | Admin Portal Test Patient Org DEV | 2323232323 | Test Campaign 1 | Patient First Name | TestMargaret | TestMargaret TestSmith | TestRussell  | TestRussell TestHeath | Selected DRPs  | Multi-patient Report   | 989-998-9889 | Patients   | 2           | Submitting this action will create story logs for the selected patients. | TESTMARGARET TESTSMITH | TESTRUSSELL TESTHEATH | Call   | Outbound | Medical Records | Answered |
 
 #  @Regression
 #  Scenario Outline: Verify_unique_DRPs_displayed_in_Algorithms_table_from_Report_History

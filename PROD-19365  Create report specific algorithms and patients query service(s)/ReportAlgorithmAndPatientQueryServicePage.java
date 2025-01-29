@@ -14,6 +14,7 @@ public class ReportAlgorithmAndPatientQueryServicePage {
 
     public static final String ALGORITHM_DATA_LOCATOR = "(//*[contains(@class,'mantine-')]// div[text()='%s']/../following-sibling::td[3]//*)[1]";
     public static final String DATA_FROM_PATIENT_RECOMMENDATION = "//*[text()='Patient Recommendations:']/following::table/tbody/tr[%s]";
+public static final String ALL_PATIENT_RECOMMENDATION_FIELD_CHECKBOX = "//*[contains(text(),'Patient Recommendations')]/ following::input[contains(@type,'checkbox') and contains(@aria-label,'Toggle select all')]";
 
     public Map<String, String> expectedPatientDataMap = new HashMap<>();
     public Map<String, String> actualPatientDataMap = new HashMap<>();
@@ -59,5 +60,17 @@ public class ReportAlgorithmAndPatientQueryServicePage {
 
         expectedPatientDataMap.clear();
         actualPatientDataMap.clear();
+    }
+
+    public void userSelectsAllPatientRecommendations() throws AutomationException {
+        driverUtil.waitForLoadingPage();
+        WebElement selectButton = driverUtil.getWebElement(ALL_PATIENT_RECOMMENDATION_FIELD_CHECKBOX);
+        if (selectButton == null)
+            throw new AutomationException("Unable to find select ALL fields for Patient Recommendation Table");
+        if (!selectButton.isSelected()) {
+            driverUtil.waitForElementToBeClickable(ALL_PATIENT_RECOMMENDATION_FIELD_CHECKBOX);
+            selectButton.click();
+        }
+
     }
 }
