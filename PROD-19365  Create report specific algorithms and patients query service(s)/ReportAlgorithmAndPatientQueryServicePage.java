@@ -1,11 +1,8 @@
 package com.arine.automation.pages;
 
-import com.arine.automation.drivers.DriverFactory;
 import com.arine.automation.exception.AutomationException;
 import io.cucumber.datatable.DataTable;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -16,13 +13,10 @@ import java.util.List;
 import java.util.Map;
 
 import static com.arine.automation.glue.CommonSteps.driverUtil;
-import static com.arine.automation.glue.CommonSteps.takeScreenshot;
 import static com.arine.automation.pages.BasePage.waitForLoadingPage;
 import static com.arine.automation.pages.PageFactory.prescriberAnalyticsPage;
 import static com.arine.automation.pages.PatientPage.scrollToTop;
 import static com.arine.automation.pages.PractitionersPage.DRPS_TABLE_CHECK_BOX;
-import static com.arine.automation.pages.PrescriberAnalyticsPage.SEARCH_COLUMN_FILTER_ELEMENT_LOCATOR;
-import static com.arine.automation.pages.PrescriberAnalyticsPage.clickOnColumnShowHideIconButton;
 
 public class ReportAlgorithmAndPatientQueryServicePage {
 
@@ -65,13 +59,10 @@ public class ReportAlgorithmAndPatientQueryServicePage {
                 throw new AutomationException("Unable to locate Algorithm data field");
             actualAlgorithmName = algorithmEle.getText();
             actualPatientDataMap.put(actualPatientName, actualAlgorithmName);
-//            if (!expectedPatientDataMap.get(actualPatientName).equals(actualAlgorithmName))
-//                throw new AutomationException("Expected " + columnName + " '" + expectedPatientDataMap.get(actualPatientName) + "' not contains when mouse hover action perform on button: '" + actualPatientName + "'");
         }
         boolean isEqual = expectedPatientDataMap.equals(actualPatientDataMap);
         if (!isEqual)
             throw new AutomationException("Actual Values Are Not Equal to Expected Values");
-
         expectedPatientDataMap.clear();
         actualPatientDataMap.clear();
     }
@@ -85,7 +76,6 @@ public class ReportAlgorithmAndPatientQueryServicePage {
             driverUtil.waitForElementToBeClickable(ALL_PATIENT_RECOMMENDATION_FIELD_CHECKBOX);
             selectButton.click();
         }
-
     }
 
     public void verifyNewlyCreatedPractitionersLogActionIsGeneratedOnCurrentDateAndContains(String columnName, DataTable patientNames) throws AutomationException {
@@ -115,7 +105,6 @@ public class ReportAlgorithmAndPatientQueryServicePage {
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
                 String CurrentDate = LocalDateTime.now().format(format);
             prescriberAnalyticsPage().verifyUserAbleToEnablePractitionerSearchFiler(CurrentDate,columnName);
-
         }else{
             prescriberAnalyticsPage().verifyUserAbleToEnablePractitionerSearchFiler(practitioner,columnName);
         }
@@ -128,6 +117,5 @@ public class ReportAlgorithmAndPatientQueryServicePage {
         if(dotButton!=null)
             dotButton.click();
         prescriberAnalyticsPage().verifyUserAbleToClearPractitionerTableColumnFilter(dataTable);
-
     }
 }

@@ -41,14 +41,8 @@ Feature: Report-Specific Algorithms and Patients Query Service
     Then Verify report viewer
     And Click on button "Send" which is in campaigns button
     Then Wait to page load
-#    And User click on "Show all" button to show all "Report History" table hidden columns
     Then Verify user able to enable column filter modes and search "Current Date" in "Created" column filter for Report History Table
     And verify "Ascending" for practitioners report history table column "Created"
-
-#    Then Verify user able to enable column filter modes and search "<Practitioner>" in "<columnName>" column filter for Report History Table
-#    Then Verify user able to enable column filter modes and search "<Practitioner>" in "<columnName>" column filter
-#    Then Verify user able to show columns which are present in reports table
-
     Then Verify the sent column status of report history table
       | Current Date |
     Then Verify recently faxed log date will be displayed last in the report history table
@@ -71,12 +65,8 @@ Feature: Report-Specific Algorithms and Patients Query Service
     And User search practitioner by npi: "<NPI>"
     And Click on practitioner search icon
     Then Wait to page load
-
-#    Then Verify user able to clear following column filters inboxes
-#      | Created |
     Then Verify user able to clear following column filters inboxes of Report History Table
       | Created |
-
     And Click on button "Story" which is in campaigns button
     And Verify newly created practitioners log action "<Action>" is generated on current date and time
     Then Verify newly created log action for "<Type>" in story tab for prescriber analytics feature
@@ -86,67 +76,9 @@ Feature: Report-Specific Algorithms and Patients Query Service
       | <patient1> |
       | <patient2> |
     And Delete newly created practitioner timeline log action
-
     Examples:
       | Organization                      | NPI        | CampaignDate    | searchFilterName   | filterValue1 | patient1               | filterValue2 | patient2              | whichDRPOption | WhatTypeOfReportOption | FaxNumber    | ColumnName | ColumnValue | string                                                                   | string1                | string2               | Action | Type     | Stakeholder     | Outcome  |
       | Admin Portal Test Patient Org DEV | 2323232323 | Test Campaign 1 | Patient First Name | TestMargaret | TestMargaret TestSmith | TestRussell  | TestRussell TestHeath | Selected DRPs  | Multi-patient Report   | 989-998-9889 | Patients   | 2           | Submitting this action will create story logs for the selected patients. | TESTMARGARET TESTSMITH | TESTRUSSELL TESTHEATH | Call   | Outbound | Medical Records | Answered |
-#      | VNS Health Test | 2323232323 | Test Campaign 1 | Patient First Name | TestMargaret | TestMargaret TestSmith | TestRussell  | TestRussell TestHeath | Selected DRPs  | Multi-patient Report   | 989-998-9889 | Patients   | 2           | Submitting this action will create story logs for the selected patients. | TESTMARGARET TESTSMITH | TESTRUSSELL TESTHEATH | Call   | Outbound | Medical Records | Answered |
-
-#  @Regression
-#  Scenario Outline: Verify_unique_DRPs_displayed_in_Algorithms_table_from_Report_History
-#    Examples:
-#
-#  @Regression
-#  Scenario Outline: Verify_Patient_Recommendations_table_for_selected_DRPs_from_Report_History
-#    Examples:
-#
-#  @Regression
-#  Scenario Outline: Verify_log_action_modal_displays_Algorithms_and_Patient_Recommendations_from_Campaigns_tab
-#    Examples:
-#
-#  @Regression
-#  Scenario Outline: Verify_unique_DRPs_displayed_in_Algorithms_table_from_Campaigns_tab
-#    Examples:
-#
-#  @Regression
-#  Scenario Outline: Verify_Patient_Recommendations_table_for_selected_DRPs_from_Campaigns_tab
-#    Examples:
-#
-#
-#  Scenario Outline:Test DEMO
-#    Given User select organization: "<Organization>"
-#    When Click on Practitioners Tab
-#    And User search practitioner by npi: "<NPI>"
-#    Then Verify the User able select the campaigns value as: "<CampaignDate>"
-#    Then Remove all previous applied filters from the campaigns tab by clicking the "Clear Filters" button
-#    Then Select reported drp table filter "<searchFilterName>" as "<filterValue1>" and click on "Apply" button
-#    Then Select records on Reported DRPS Table values
-#      | <Practitioner1> |
-#    Then Remove all previous applied filters from the campaigns tab by clicking the "Clear Filters" button
-#    And Click on button "Fax Provider" which is in campaigns button
-#    Then Select resend most recent reports option in send fax popup
-#    Then Enter fax number "<FaxNumber>" in input and select that fax number
-#    And Click on button "Preview and Send" which is in campaigns button
-#    Then Verify report viewer
-#    And Click on button "Send" which is in campaigns button
-#    And Search patient: "<searchString>"
-#    Given User select organization: "<Organization>"
-#    When Click on Practitioners Tab
-#    And User search practitioner by npi: "<NPI>"
-#    Then Verify the User able select the campaigns value as: "<CampaignDate>"
-#    Then User provider last log activity date will be displayed last in the timeline table
-#    And Click on button "Story" which is in campaigns button
-#    Then Verify newly created log action for "<string>" in story tab for prescriber analytics feature
-#    And Verify newly created practitioners log action "<string>" is generated on current date and time
-#    Then Delete newly created practitioner timeline log action
-#    And Click on button "Follow Up" which is in campaigns button
-#    Then Remove all previous applied filters from the campaigns tab by clicking the "Clear Filters" button
-#    And User select all reported DRPs
-#    And User deselect all reported DRPs
-#    Then Delete all log actions if present in practitioner timeline table
-#    Examples:
-#      | username                                           | password                                           | message | searchString                         | Organization                      | CampaignDate    | NPI        | string    | searchFilterName  | filterValue1 | Practitioner1   | FaxNumber    |
-#      | $practitioner-tab-reports-analytics.user1.username | $practitioner-tab-reports-analytics.user1.password | success | 5d83de75-8ac8-47d3-bf00-830bd1da7029 | Admin Portal Test Patient Org DEV | Test Campaign 1 | 1750393690 | Submitted | Patient Last Name | Lucy2802     | Miller Lucy2802 | 989-998-9889 |
 
   @Setup @Regression @Smoke
   Scenario: SETUP: Logout and Close Browser
