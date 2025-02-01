@@ -41,7 +41,14 @@ Feature: Report-Specific Algorithms and Patients Query Service
     Then Verify report viewer
     And Click on button "Send" which is in campaigns button
     Then Wait to page load
-    And User click on "Show all" button to show all "Report History" table hidden columns
+#    And User click on "Show all" button to show all "Report History" table hidden columns
+    Then Verify user able to enable column filter modes and search "Current Date" in "Created" column filter for Report History Table
+    And verify "Ascending" for practitioners report history table column "Created"
+
+#    Then Verify user able to enable column filter modes and search "<Practitioner>" in "<columnName>" column filter for Report History Table
+#    Then Verify user able to enable column filter modes and search "<Practitioner>" in "<columnName>" column filter
+#    Then Verify user able to show columns which are present in reports table
+
     Then Verify the sent column status of report history table
       | Current Date |
     Then Verify recently faxed log date will be displayed last in the report history table
@@ -64,16 +71,26 @@ Feature: Report-Specific Algorithms and Patients Query Service
     And User search practitioner by npi: "<NPI>"
     And Click on practitioner search icon
     Then Wait to page load
+
+#    Then Verify user able to clear following column filters inboxes
+#      | Created |
+    Then Verify user able to clear following column filters inboxes of Report History Table
+      | Created |
+
     And Click on button "Story" which is in campaigns button
     And Verify newly created practitioners log action "<Action>" is generated on current date and time
     Then Verify newly created log action for "<Type>" in story tab for prescriber analytics feature
     Then Verify newly created log action for "<Stakeholder>" in story tab for prescriber analytics feature
     Then Verify newly created log action for "<Outcome>" in story tab for prescriber analytics feature
+    Then Verify newly created practitioners log action "Step(s) Performed" is generated with current date and contains
+      | <patient1> |
+      | <patient2> |
     And Delete newly created practitioner timeline log action
 
     Examples:
       | Organization                      | NPI        | CampaignDate    | searchFilterName   | filterValue1 | patient1               | filterValue2 | patient2              | whichDRPOption | WhatTypeOfReportOption | FaxNumber    | ColumnName | ColumnValue | string                                                                   | string1                | string2               | Action | Type     | Stakeholder     | Outcome  |
       | Admin Portal Test Patient Org DEV | 2323232323 | Test Campaign 1 | Patient First Name | TestMargaret | TestMargaret TestSmith | TestRussell  | TestRussell TestHeath | Selected DRPs  | Multi-patient Report   | 989-998-9889 | Patients   | 2           | Submitting this action will create story logs for the selected patients. | TESTMARGARET TESTSMITH | TESTRUSSELL TESTHEATH | Call   | Outbound | Medical Records | Answered |
+#      | VNS Health Test | 2323232323 | Test Campaign 1 | Patient First Name | TestMargaret | TestMargaret TestSmith | TestRussell  | TestRussell TestHeath | Selected DRPs  | Multi-patient Report   | 989-998-9889 | Patients   | 2           | Submitting this action will create story logs for the selected patients. | TESTMARGARET TESTSMITH | TESTRUSSELL TESTHEATH | Call   | Outbound | Medical Records | Answered |
 
 #  @Regression
 #  Scenario Outline: Verify_unique_DRPs_displayed_in_Algorithms_table_from_Report_History
