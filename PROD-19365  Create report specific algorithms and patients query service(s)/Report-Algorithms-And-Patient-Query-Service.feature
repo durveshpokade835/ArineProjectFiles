@@ -35,13 +35,13 @@ Feature: Report-Specific Algorithms and Patients Query Service
     And User extracts patient "Algorithm" column data for following patient
       | <patient2> |
     Then Remove all previous applied filters from the campaigns tab by clicking the "Clear Filters" button
-#    Then Select reported drp table filter "<searchFilterName>" as "<filterValue3>" and click on "Apply" button
-#    Then Select reported drp table filter "Algorithm" as "ADD MED: statin in DM (PA only)" and click on "Apply" button
-#    Then Select records on Reported DRPS Table values
-#      | <patient3> |
-#    And User extracts patient "Algorithm" column data for following patient
-#      | <patient3> |
-#    Then Remove all previous applied filters from the campaigns tab by clicking the "Clear Filters" button
+    Then Select reported drp table filter "<searchFilterName>" as "<filterValue3>" and click on "Apply" button
+    Then Select reported drp table filter "Algorithm" as "ADD MED: statin in DM (PA only)" and click on "Apply" button
+    Then Select records on Reported DRPS Table values
+      | <patient3> |
+    And User extracts patient "Algorithm" column data for following patient
+      | <patient3> |
+    Then Remove all previous applied filters from the campaigns tab by clicking the "Clear Filters" button
     And Verify the FaxProvider button enabled or not
     Then Click on button: "Fax Provider"
     Then User select DRP option "<whichDRPOption>" for follow up fax
@@ -68,7 +68,7 @@ Feature: Report-Specific Algorithms and Patients Query Service
     Then Verify report viewer
     Then Verify report contains: "<string1>"
     Then Verify report contains: "<string2>"
-#    Then Verify report contains: "<string3>"
+    Then Verify report contains: "<string3>"
     And Click on button "Close" which is in campaigns button
     And Click on log action button from report history table
     And Verify text on screen "Log New Action"
@@ -100,14 +100,14 @@ Feature: Report-Specific Algorithms and Patients Query Service
     Then Verify newly created practitioners log action "Step(s) Performed" is generated with current date and contains
       | <patient1> |
       | <patient2> |
-#      | <patient3> |
+      | <patient3> |
     And Delete newly created practitioner timeline log action
     And Delete newly created practitioner timeline log action
     Examples:
       | Organization                      | NPI        | CampaignDate    | searchFilterName   | filterValue1 | patient1            | filterValue2 | patient2              | filterValue3 | patient3              | whichDRPOption | WhatTypeOfReportOption | FaxNumber    | ColumnName | ColumnValue | string                                                                   | string1             | string2               | string3               | Action | Type     | Stakeholder     | Outcome  |
 #      | Admin Portal Test Patient Org DEV | 2323232323 | Test Campaign 1 | Patient First Name | TestMargaret | TestMargaret TestSmith | TestRussell  | TestRussell TestHeath | TestAngela   | TestAngela TestMontgomery | Selected DRPs  | Multi-patient Report   | 989-998-9889 | Patients   | 2           | Submitting this action will create story logs for the selected patients. | TESTMARGARET TESTSMITH | TESTRUSSELL TESTHEATH | TESTANGELA TESTMONTGOMERY | Call   | Outbound | Medical Records | Answered |
 #      | Admin Portal Test Patient Org DEV | 2323232323 | Test Campaign 1 | Patient First Name | TestGerald   | TestGerald TestClark | TestJeffrey  | TestJeffrey TestWalker | TestRussell  | TestRussell TestHeath | Selected DRPs  | Multi-patient Report   | 989-998-9889 | Patients   | 3           | Submitting this action will create story logs for the selected patients. | TESTGERALD TESTCLARK | TESTJEFFREY TESTWALKER | TESTRUSSELL TESTHEATH | Call   | Outbound | Medical Records | Answered |
-      | Admin Portal Test Patient Org DEV | 2323232323 | Test Campaign 3 | Patient First Name | TestAlex     | TestAlex TestTaylor | TestRuben    | TestRuben TestJohnson | TestAmanda   | TestAmanda TestBerger | Selected DRPs  | Multi-patient Report   | 232-323-2323 | Patients   | 2           | Submitting this action will create story logs for the selected patients. | TESTALEX TESTTAYLOR | TESTRUBEN TESTJOHNSON | TESTAMANDA TESTBERGER | Call   | Outbound | Medical Records | Answered |
+      | Admin Portal Test Patient Org DEV | 2323232323 | Test Campaign 3 | Patient First Name | TestAlex     | TestAlex TestTaylor | TestRuben    | TestRuben TestJohnson | TestAmanda   | TestAmanda TestBerger | Selected DRPs  | Multi-patient Report   | 232-323-2323 | Patients   | 3           | Submitting this action will create story logs for the selected patients. | TESTALEX TESTTAYLOR | TESTRUBEN TESTJOHNSON | TESTAMANDA TESTBERGER | Call   | Outbound | Medical Records | Answered |
 
   @Setup @Regression @Smoke
   Scenario: SETUP: Logout and Close BrowserADD MED: ACEI/ARB/ARNI (CHF PA)
