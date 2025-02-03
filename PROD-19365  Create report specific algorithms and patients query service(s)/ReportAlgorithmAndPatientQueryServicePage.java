@@ -105,8 +105,14 @@ public class ReportAlgorithmAndPatientQueryServicePage {
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
                 String CurrentDate = LocalDateTime.now().format(format);
             prescriberAnalyticsPage().verifyUserAbleToEnablePractitionerSearchFiler(CurrentDate,columnName);
+            dotButton = driverUtil.findElement("//*[text()='Report History']//..//..//button[contains(@class,'mantine-ActionIcon') and @aria-haspopup='dialog']");
+            if(dotButton!=null)
+                dotButton.click();
         }else{
             prescriberAnalyticsPage().verifyUserAbleToEnablePractitionerSearchFiler(practitioner,columnName);
+            dotButton = driverUtil.findElement("//*[text()='Report History']//..//..//button[contains(@class,'mantine-ActionIcon') and @aria-haspopup='dialog']");
+            if(dotButton!=null)
+                dotButton.click();
         }
     }
 

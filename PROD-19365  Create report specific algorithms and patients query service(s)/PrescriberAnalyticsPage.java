@@ -70,7 +70,7 @@ public class PrescriberAnalyticsPage extends PatientPage {
     public static final String COLUMN_ACTIONS_ELEMENTS = "//*[contains(@class,'Menu-dropdown')]//button//..//*[text()='%s']";
     public static final String PDF_ICON_IN_REPORT_HISTORY_TABLE = "//*[text()='Report History']/..//..//..// table// tr[1]// td[7]// descendant::*[contains(@class,'tabler-icon-file-description')]";
     public static final String REPORT_HISTORY_TABLE_COLUMN_HEADING_NAMES = "//*[text()='Report History']//..//..//..//*[contains(@class,'TableHeadCell-Content-Labels')]//div";
-    public static final String COLUMN_FIRST_VALUE_IN_REPORT_HISTORY_TABLE = "(//*[contains(@class,'Table-root mantine')]//tr[1]//td[%s])[1]";
+    public static final String COLUMN_FIRST_VALUE_IN_REPORT_HISTORY_TABLE = "//*[text() = 'Report History']/../..//parent::*//*[contains(@class,'Table-root mantine')]// tr[1]// td[%s]";
     public static final String VERIFY_PRACTITIONER_TIMELINE_STORY_FIRST_RECORD = "(//*[contains(@class,'PractitionerStoryTable') and //*[text()='Practitioner Timeline']]/..//table)//tr[1]/td[contains(text(),'%s')]";
     public static final String PRACTITIONER_TASK_TABLE_HEADER = "//*[contains(@class,'tableHeader') and text()='Practitioner Tasks']";
     public static final String PRACTITIONER_TIMELINE_TABLE_HEADER = "//*[contains(@class,'tableHeader') and text()='Practitioner Timeline']";
