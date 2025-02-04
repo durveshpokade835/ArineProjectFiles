@@ -24,6 +24,7 @@ public class ReportAlgorithmAndPatientQueryServicePage {
     public static final String DATA_FROM_PATIENT_RECOMMENDATION = "//*[text()='Patient Recommendations:']/following::table/tbody/tr[%s]";
     public static final String ALL_PATIENT_RECOMMENDATION_FIELD_CHECKBOX = "//*[contains(text(),'Patient Recommendations')]/ following::input[contains(@type,'checkbox') and contains(@aria-label,'Toggle select all')]";
     public static final String STEPS_PERFORMED_LOCATOR = "(//*[contains(@class,'PractitionerStoryTable') and //*[text()='Practitioner Timeline']]/..// table)// tr[1]/ td[6]";
+    public static final String THREE_DOT_POP_UP_BUTTON = "//*[text()='Report History']//..//..//button[contains(@class,'mantine-ActionIcon') and @aria-haspopup='dialog']";
     public Map<String, String> expectedPatientDataMap = new HashMap<>();
     public Map<String, String> actualPatientDataMap = new HashMap<>();
 
@@ -98,19 +99,19 @@ public class ReportAlgorithmAndPatientQueryServicePage {
     public void verifyUserAbleToEnablePractitionerSearchFilterForReportHistoryTable(String practitioner, String columnName) throws AutomationException {
         waitForLoadingPage();
         scrollToTop();
-        WebElement dotButton = driverUtil.findElement("//*[text()='Report History']//..//..//button[contains(@class,'mantine-ActionIcon') and @aria-haspopup='dialog']");
+        WebElement dotButton = driverUtil.findElement(THREE_DOT_POP_UP_BUTTON);
         if(dotButton!=null)
             dotButton.click();
         if (practitioner.equalsIgnoreCase("Current Date")) {
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
                 String CurrentDate = LocalDateTime.now().format(format);
             prescriberAnalyticsPage().verifyUserAbleToEnablePractitionerSearchFiler(CurrentDate,columnName);
-            dotButton = driverUtil.findElement("//*[text()='Report History']//..//..//button[contains(@class,'mantine-ActionIcon') and @aria-haspopup='dialog']");
+            dotButton = driverUtil.findElement(THREE_DOT_POP_UP_BUTTON);
             if(dotButton!=null)
                 dotButton.click();
         }else{
             prescriberAnalyticsPage().verifyUserAbleToEnablePractitionerSearchFiler(practitioner,columnName);
-            dotButton = driverUtil.findElement("//*[text()='Report History']//..//..//button[contains(@class,'mantine-ActionIcon') and @aria-haspopup='dialog']");
+            dotButton = driverUtil.findElement(THREE_DOT_POP_UP_BUTTON);
             if(dotButton!=null)
                 dotButton.click();
         }
@@ -119,7 +120,7 @@ public class ReportAlgorithmAndPatientQueryServicePage {
     public void verifyUserAbleToClearColumnFilterOfReportHistoryTable(DataTable dataTable) throws AutomationException {
         waitForLoadingPage();
         scrollToTop();
-        WebElement dotButton = driverUtil.findElement("//*[text()='Report History']//..//..//button[contains(@class,'mantine-ActionIcon') and @aria-haspopup='dialog']");
+        WebElement dotButton = driverUtil.findElement(THREE_DOT_POP_UP_BUTTON);
         if(dotButton!=null)
             dotButton.click();
         prescriberAnalyticsPage().verifyUserAbleToClearPractitionerTableColumnFilter(dataTable);
