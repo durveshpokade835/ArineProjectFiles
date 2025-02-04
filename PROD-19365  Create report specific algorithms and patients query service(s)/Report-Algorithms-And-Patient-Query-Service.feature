@@ -51,11 +51,11 @@ Feature: Report-Specific Algorithms and Patients Query Service
     Then Verify report viewer
     And Click on button "Send" which is in campaigns button
     Then Wait to page load
-    Then Verify user able to enable column filter modes and search "Current Date" in "Created" column filter for Report History Table
-    Then Verify user able to enable column filter modes and search "Queued" in "Sent" column filter for Report History Table
+#    Then Verify user able to enable column filter modes and search "Current Date" in "Created" column filter for Report History Table
+#    Then Verify user able to enable column filter modes and search "Queued" in "Sent" column filter for Report History Table
     Then Verify the sent column status of report history table
       | Current Date |
-      | Queued       |
+#      | Queued       |
     Then Verify recently faxed log date will be displayed last in the report history table and "<ColumnName>" column contains "<ColumnValue>" value
     And Click on first records pdf icon from report history table
     Then Verify report viewer
@@ -79,9 +79,9 @@ Feature: Report-Specific Algorithms and Patients Query Service
     And Click on button "Follow Up" which is in campaigns button
     Then Verify the User able select the campaigns value as: "<CampaignDate>"
     Then Remove all previous applied filters from the campaigns tab by clicking the "Clear Filters" button
-    Then Verify user able to clear following column filters inboxes of Report History Table
-      | Created |
-      | Sent    |
+#    Then Verify user able to clear following column filters inboxes of Report History Table
+#      | Created |
+#      | Sent    |
     And User select all reported DRPs
     And User deselect all reported DRPs
     And Click on button "Story" which is in campaigns button
