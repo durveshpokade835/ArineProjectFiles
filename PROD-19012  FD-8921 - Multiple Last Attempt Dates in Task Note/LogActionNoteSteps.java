@@ -8,13 +8,8 @@ import cucumber.api.java.en.Then;
 import static com.arine.automation.glue.CommonSteps.takeScreenshot;
 
 public class LogActionNoteSteps {
+
     CommonSteps common = new CommonSteps();
-//    @Then("Verify User is able to log action for selected task \"([^\"]*)\" and Verify \"([^\"]*)\"$")
-//    public void verifyUserIsAbleToLogActionForSelectedTaskAndVerify(String verificationText, String note) throws AutomationException {
-//        common.logInfo(" Click on first records Fax icon from report sent table");
-//        PageFactory.logActionNotePage().verifyUserIsAbleToLogActionForSelectedTaskAndVerify(verificationText,note);
-//        takeScreenshot();
-//    }
 
     @Then("^Sort column \"([^\"]*)\" in \"([^\"]*)\" order$")
     public void sortColumnInOrder(String columnName, String order) {
@@ -26,7 +21,6 @@ public class LogActionNoteSteps {
     public void verifyLastAttemptedByInformationUpdatedAccurately(String userNameAndDate) throws AutomationException {
         common.logInfo("Verify last attempted by field updated accurately");
         PageFactory.logActionNotePage().verifyLastAttemptedByInformationUpdatedAccurately(userNameAndDate);
-//        takeScreenshot();
     }
 
     @Then("^Click on newly created task for \"([^\"]*)\" in tasks tab$")

@@ -1,7 +1,7 @@
-@PharmacistPortal @PatientQueryService
+@PharmacistPortal @LogActionNote
 Feature: Report-Specific Algorithms and Patients Query Service
 
-      #PROD-19365
+      #PROD-19012  FD-8921
   @Setup @Regression @Smoke
   Scenario Outline: SETUP: Launch Browser and go to application
     Given User launched "chrome"
@@ -12,6 +12,7 @@ Feature: Report-Specific Algorithms and Patients Query Service
       | username                                           | password                                           | message |
       | $practitioner-tab-reports-analytics.user1.username | $practitioner-tab-reports-analytics.user1.password | success |
 
+  @Regression
   Scenario Outline:Verify_last_attempted_by_field_updates_correctly_without_stacking
     Given User select organization: "<Organization>"
     When Click on Patient Tab
@@ -25,24 +26,11 @@ Feature: Report-Specific Algorithms and Patients Query Service
       | Assigned to | Type          | Task                  | Due Date | NOTES   |
       | Pharmacist  | Review Upload | + MTM-Medication List | Urgent   | <notes> |
     And Verify newly created task for "<notes>"
-#    Then Click on newly created task for "<notes>"
-#    And Click on task action button: "Log Action"
-#    And Verify create new log action popup
-#    Then Create new log action with below information:
-#      | ACTION | TYPE     | STAKEHOLDER | OUTCOME   | STEP(S) PERFORMED                                     | NOTE    |
-#      | Call   | Outbound | Patient     | Discussed | + CMR Appointment-Patient Recommendations Packet Sent | <notes> |
-#    And Click on tab: "Profile and Action Plan"
-#    Then Wait to page load
-#    And Click on tab: "Story"
-#    And Verify newly created task on tasks table is not present for "<notes>"
-#    Then Delete all log actions if present in patient timeline table
     Then Click on Tasks Tab
     Then Click on tasks sub tab: "All"
     Then Sort column "Due Date" in "Descending" order
     And Verify newly created task on tasks tab for "<notes>"
-#    Then Click on newly created task for "<notes>"
     Then Click on newly created task for "<notes>" in tasks tab
-#    And Select task having "<notes>"
     And Click on task action button: "Log Action"
     And Verify create new log action popup
     Then Create new log action with below information:
@@ -57,9 +45,10 @@ Feature: Report-Specific Algorithms and Patients Query Service
     And Delete task "<notes>" if present
     Then Delete all log actions if present in patient timeline table
     Examples:
-      | Organization          | PatientID1                           | patientName                   | type          | task                  | notes                      | notes2                      | lastAttemptedByAndDate                 |
-      | bits SCAN Health Plan | 1b3de805-5d9a-4527-9223-a209b2d2472a | Test Ph-Arine2 Test PH-Arine2 | Review Upload | + MTM-Medication List | Task created by automation | Task created by automation2 | Last attempted by DevAdmin DevAdmin on |
+      | Organization                      | PatientID1                           | patientName                   | type          | task                  | notes                      | notes2                      | lastAttemptedByAndDate                 |
+      | Admin Portal Test Patient Org DEV | 1b3de805-5d9a-4527-9223-a209b2d2472a | Test Ph-Arine2 Test PH-Arine2 | Review Upload | + MTM-Medication List | Task created by automation | Task created by automation2 | Last attempted by DevAdmin DevAdmin on |
 
+  @Regression
   Scenario Outline:Verify_last_attempted_by_field_updates_correctly_without_stacking_through_Patients_tab
     Given User select organization: "<Organization>"
     When Click on Patient Tab
@@ -85,8 +74,8 @@ Feature: Report-Specific Algorithms and Patients Query Service
     And Verify newly created task on tasks table is not present for "<notes>"
     Then Delete all log actions if present in patient timeline table
     Examples:
-      | Organization          | PatientID1                           | patientName                   | type          | task                  | notes                      | notes2                      | lastAttemptedByAndDate                 |
-      | bits SCAN Health Plan | 1b3de805-5d9a-4527-9223-a209b2d2472a | Test Ph-Arine2 Test PH-Arine2 | Review Upload | + MTM-Medication List | Task created by automation | Task created by automation2 | Last attempted by DevAdmin DevAdmin on |
+      | Organization                      | PatientID1                           | patientName                   | notes                      |
+      | Admin Portal Test Patient Org DEV | 1b3de805-5d9a-4527-9223-a209b2d2472a | Test Ph-Arine2 Test PH-Arine2 | Task created by automation |
 
   @Setup @Regression @Smoke
   Scenario: SETUP: Logout and Close Browser
