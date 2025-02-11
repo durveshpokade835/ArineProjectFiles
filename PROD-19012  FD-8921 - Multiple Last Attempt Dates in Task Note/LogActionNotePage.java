@@ -1,6 +1,8 @@
 package com.arine.automation.pages;
 
 import com.arine.automation.exception.AutomationException;
+import com.arine.automation.glue.CommonSteps;
+import com.arine.automation.util.WebDriverUtil;
 import org.openqa.selenium.WebElement;
 
 import java.time.LocalDateTime;
@@ -62,21 +64,42 @@ public class LogActionNotePage {
         }
     }
 
-    public void verifyLastAttemptedByInformationUpdatedAccurately() throws AutomationException {
+    public void verifyLastAttemptedByInformationUpdatedAccurately(String userNameAndDate) throws AutomationException {
         waitForLoadingPage();
-        WebElement lastAttemptedByField = driverUtil.getWebElement(LAST_ATTEMPTED_BY_INFO_LOCATOR);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("M/d/yy");
+        String currentDate = LocalDateTime.now().format(format);
+        String CurrentNoteWithDate = null;
+        try {
+            CurrentNoteWithDate = (userNameAndDate + " " + (currentDate));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(" Verification Text with Current Date =====" + CurrentNoteWithDate);
+
+//        WebElement lastAttemptedByField = driverUtil.getWebElement(LAST_ATTEMPTED_BY_INFO_LOCATOR);
+        WebElement lastAttemptedByField = driverUtil.getWebElementAndScroll(LAST_ATTEMPTED_BY_INFO_LOCATOR,10);
         if(lastAttemptedByField == null)
             throw new AutomationException("Last Attempted By information is not visible or may taking long time to load");
+        CommonSteps.takeScreenshot();
         String text =lastAttemptedByField.getText();
-        if(!text.contains("Last attempted by"))
+        if(!text.contains(CurrentNoteWithDate))
             throw new AutomationException("Last Attempted By information is not updated clearly");
+        WebDriverUtil.waitForAWhile(5);
     }
 
     public void clickOnNewlyCreatedTaskForInTasksTab(String identifier) throws AutomationException {
         scrollToTop();
-        WebElement taskRecord = driverUtil.getWebElement(String.format(LAST_CREATED_LOG, identifier));
-        if (taskRecord == null)
-            throw new AutomationException(String.format("Unable to find newly created task contains: %s", identifier));
-        taskRecord.click();
+        try {
+            WebElement taskRecord = driverUtil.getWebElement(String.format(LAST_CREATED_LOG, identifier));
+            if (taskRecord == null)
+                throw new AutomationException(String.format("Unable to find newly created task contains: %s", identifier));
+            taskRecord.click();
+        } catch (Exception e) {
+            WebElement taskRecord = driverUtil.getWebElement(String.format(LAST_CREATED_LOG, identifier));
+            if (taskRecord == null)
+                throw new AutomationException(String.format("Unable to find newly created task contains: %s", identifier));
+            taskRecord.click();
+        }
+        WebDriverUtil.waitForAWhile(5);
     }
 }

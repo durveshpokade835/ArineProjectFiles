@@ -42,6 +42,7 @@ Feature: Report-Specific Algorithms and Patients Query Service
     And Verify newly created task on tasks tab for "<notes>"
 #    Then Click on newly created task for "<notes>"
     Then Click on newly created task for "<notes>" in tasks tab
+#    And Select task having "<notes>"
     And Click on task action button: "Log Action"
     And Verify create new log action popup
     Then Create new log action with below information:
@@ -50,16 +51,13 @@ Feature: Report-Specific Algorithms and Patients Query Service
     Then Click on tasks sub tab: "Urgent"
     And Click on tasks sub tab: "All"
     Then Click on newly created task for "<notes>" in tasks tab
-    And Verify last attempted by information updated accurately
+    And Verify last attempted by information updated accurately and verify "<lastAttemptedByAndDate>"
     Then Click on Patient Tab
     And Click on tab: "Story"
     And Delete task "<notes>" if present
-#    And Verify newly created task on tasks tab for "<notes>"
-#    And Select task having "<notes>"
-#    And Verify User is able to log action for selected task and Verify "<lastAttemptedByAndDate>"
     Examples:
       | Organization          | PatientID1                           | patientName                   | type          | task                  | notes                      | notes2                      | lastAttemptedByAndDate                |
-      | bits SCAN Health Plan | 1b3de805-5d9a-4527-9223-a209b2d2472a | Test Ph-Arine2 Test PH-Arine2 | Review Upload | + MTM-Medication List | Task created by automation | Task created by automation2 | Last attempted by dev automation11 on |
+      | bits SCAN Health Plan | 1b3de805-5d9a-4527-9223-a209b2d2472a | Test Ph-Arine2 Test PH-Arine2 | Review Upload | + MTM-Medication List | Task created by automation | Task created by automation2 | Last attempted by DevAdmin DevAdmin on |
 
   @Setup @Regression @Smoke
   Scenario: SETUP: Logout and Close Browser

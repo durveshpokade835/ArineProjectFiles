@@ -22,11 +22,11 @@ public class LogActionNoteSteps {
         PageFactory.logActionNotePage().sortColumnInOrder(columnName,order);
         takeScreenshot();
     }
-    @And("^Verify last attempted by information updated accurately$")
-    public void verifyLastAttemptedByInformationUpdatedAccurately() throws AutomationException {
+    @And("^Verify last attempted by information updated accurately and verify \"([^\"]*)\"$")
+    public void verifyLastAttemptedByInformationUpdatedAccurately(String userNameAndDate) throws AutomationException {
         common.logInfo("Verify last attempted by field updated accurately");
-        PageFactory.logActionNotePage().verifyLastAttemptedByInformationUpdatedAccurately();
-        takeScreenshot();
+        PageFactory.logActionNotePage().verifyLastAttemptedByInformationUpdatedAccurately(userNameAndDate);
+//        takeScreenshot();
     }
 
     @Then("^Click on newly created task for \"([^\"]*)\" in tasks tab$")
